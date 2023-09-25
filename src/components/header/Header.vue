@@ -28,27 +28,27 @@ export default {
   name: "headerVue",
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  const checkbox = document.getElementById("checkbox");
-  const modal = document.getElementById("modal");
+// document.addEventListener("DOMContentLoaded", function () {
+//   const checkbox = document.getElementById("checkbox");
+//   const modal = document.getElementById("modal");
 
-  checkbox.addEventListener("change", function () {
-    if (this.checked) {
-      modal.style.display = "flex";
-      // body.style.overflow = "hidden";
-      setTimeout(() => {
-        modal.style.opacity = 1;
-        modal.style.zIndex = 999;
-      }, 10);
-    } else {
-      modal.style.display = "none";
-      modal.style.opacity = 0;
-      setTimeout(() => {
-        modal.style.display = "none";
-      }, 500);
-    }
-  });
-});
+//   checkbox.addEventListener("change", function () {
+//     if (this.checked) {
+//       modal.style.display = "flex";
+//       // body.style.overflow = "hidden";
+//       setTimeout(() => {
+//         modal.style.opacity = 1;
+//         modal.style.zIndex = 999;
+//       }, 10);
+//     } else {
+//       modal.style.display = "none";
+//       modal.style.opacity = 0;
+//       setTimeout(() => {
+//         modal.style.display = "none";
+//       }, 500);
+//     }
+//   });
+// });
 </script>
 
 <style scoped lang="scss">
