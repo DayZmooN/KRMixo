@@ -1,0 +1,94 @@
+@charset "UTF-8";
+/* Réinitialisation CSS */
+/* Remise à zéro des marges et des rembourrages */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+li,
+form,
+fieldset,
+legend,
+input,
+textarea,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+/* Utiliser une police de caractères uniforme */
+body,
+button,
+input,
+select,
+textarea {
+  font-family: Arial, sans-serif;
+}
+
+/* Remise à zéro des bordures */
+a,
+button,
+input,
+select,
+textarea {
+  border: none;
+}
+
+/* Remise à zéro des styles de liste */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remise à zéro des styles de lien */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remise à zéro des styles de bouton */
+button {
+  cursor: pointer;
+}
+
+/* Remise à zéro des éléments de formulaire */
+input,
+select,
+textarea {
+  vertical-align: middle;
+}
+
+/* Remise à zéro des éléments de tableau */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Réinitialisation des éléments de média intégrés */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Réinitialisation des éléments de formulaire de liste */
+select,
+input[type="file"] {
+  vertical-align: middle;
+}
+
+/* Réinitialisation des éléments de formulaire de bouton radio et case à cocher */
+input[type="checkbox"],
+input[type="radio"] {
+  vertical-align: bottom;
+}
+
+/* Remise à zéro des éléments cachés */
+.hidden {
+  display: none !important;
+}
+
+/* Ajoutez vos styles personnalisés ci-dessous */ /*# sourceMappingURL=style.css.map */
