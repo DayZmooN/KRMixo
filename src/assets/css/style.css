@@ -1,1 +1,11 @@
-/*# sourceMappingURL=style.css.map */
+@charset "UTF-8";
+/* styles.css */
+@font-face {
+  font-family: "HussarPrinta"; /* Nom de la police */
+  src: url("../Fonts/hussarprinta.otf") format("opentype"); /* Chemin vers le fichier de police */
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  font-family: "HussarPrinta", sans-serif; /* Utilisation de la police déclarée */
+}/*# sourceMappingURL=style.css.map */
