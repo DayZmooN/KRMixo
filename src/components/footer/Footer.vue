@@ -29,8 +29,19 @@
         />
       </div>
     </div>
-    <div class="footer_destop">
-      <!-- <h1>hello</h1> -->
+    <div class="footer_desktop">
+      <div class="mail">
+        <span>karimryahi01@gmail.com</span>
+      </div>
+      <div class="social">
+        <a href=""><span>Portfolio</span></a>
+        <a href=""><span>GitHub</span></a>
+        <a href=""><span>LinkeDin </span></a>
+      </div>
+      <div class="name_copyright">
+        <a href=""><span>KRMixo.com</span></a>
+        <a href=""><span>Copyright © All rights reserved</span></a>
+      </div>
     </div>
   </footer>
 </template>
@@ -44,19 +55,23 @@ export default {
 <style lang="scss" scoped>
 footer {
   width: 100%;
-  // height: 78px;
+  height: 78px;
   background: #242a32;
   position: fixed;
   bottom: 0px;
-  background-color: #242a32;
+  display: flex;
+  align-content: center;
+  //   background-color: #242a32;
 
   .footer_name {
     display: flex;
     justify-content: space-between;
     align-content: center;
+
     @media screen and (min-width: 780px) {
       display: none;
     }
+
     .icon {
       width: 100%;
       display: flex;
@@ -65,28 +80,49 @@ footer {
       cursor: pointer;
       font-size: 2rem;
       height: 70px;
+
       .icone-personnalisable {
         fill: #ff5733;
         height: 100%;
+
         &:active {
           fill: #fff;
         }
       }
     }
   }
+
   .footer_desktop {
+    width: 100%;
     display: none;
 
     @media screen and (min-width: 780px) {
-      display: none;
-      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       width: 100%;
-      background: #242a32;
+      //   background: #ff5733;
     }
-
-    h1 {
-      font-size: 2rem;
+    .mail {
+      margin: auto 10px;
+    }
+    .social {
+      span {
+        margin: auto 10px;
+        color: #fff;
+      }
+    }
+    span {
+      font-size: 1rem;
       color: #ff5733;
+    }
+    .name_copyright {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
     }
   }
 }
