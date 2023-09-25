@@ -67,6 +67,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-content: center;
+    width: 100%;
 
     @media screen and (min-width: 780px) {
       display: none;

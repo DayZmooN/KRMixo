@@ -17,8 +17,8 @@
       </div>
     </div>
     <div id="modal" class="modal">
-      <span>categorys</span>
-      <span>ingredients</span>
+      <a href=""><span>categorys</span></a>
+      <a href=""><span>ingredients</span></a>
     </div>
   </header>
 </template>
@@ -142,18 +142,21 @@ header {
     }
   }
   .modal {
+    position: relative;
     display: none;
     position: fixed;
     flex-direction: column;
     top: 100px;
     left: 0;
     width: 100%;
+    gap: 1rem;
     height: auto;
     background: linear-gradient(
       180deg,
       rgba(251, 125, 138, 0.45) 0%,
       rgba(255, 206, 49, 0.45) 100%
     );
+
     // color: white;
     justify-content: center;
     align-items: center;
@@ -164,8 +167,20 @@ header {
     transition: opacity 0.85s ease;
 
     span {
+      padding: 15px;
       font-size: 3rem;
       color: rgb(255, 255, 255);
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit; /* Copiez l'arrière-plan de l'élément parent */
+      filter: blur(5px); /* Appliquez le flou sur le pseudo-élément */
+      z-index: -1;
     }
   }
 }
