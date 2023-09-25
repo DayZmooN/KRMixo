@@ -15,5 +15,9 @@
       "dom.iterable",
       "scripthost"
     ]
-  }
+  },
+  "include": [
+    "src/**/*",
+    "./vue-slick-carousel.d.ts" // Remplacez "path/to/your" par le chemin vers le fichier
+  ]
 }

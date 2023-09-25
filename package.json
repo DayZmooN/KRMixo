@@ -13,11 +13,15 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@vue-storefront/storyblok": "^0.3.0",
     "core-js": "^3.8.3",
     "font-awesome": "^4.7.0",
+    "storyblok-vue": "^1.0.5",
+    "swiper": "^10.3.0",
     "vue": "^3.2.13",
     "vue-carrousel": "^1.0.5",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vue-slick-carousel": "^1.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

@@ -15,7 +15,7 @@
             <h2>20 min</h2>
           </div>
           <div class="dificult">
-            <span> Easy </span>
+            <span>{{ dificulty || "Easy" }}</span>
           </div>
         </div>
         <div class="heard">
