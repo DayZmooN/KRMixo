@@ -30,8 +30,9 @@
 
 <script>
 import Header from "@/components/header/Header.vue";
-import Search from "@/components/search/Search.vue";
 import Footer from "@/components/footer/Footer.vue";
+import Search from "@/components/search/Search.vue";
+
 import Card from "@/components/card/Card.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperCore, { Navigation } from "swiper";
@@ -41,7 +42,7 @@ SwiperCore.use([Navigation]);
 
 import "swiper/css";
 import "swiper/css/navigation";
-import { getDerniersCocktails } from "@/services/ApiCocktailDb.js";
+import { allCocktailNoAlcool } from "@/services/ApiCocktailDb.js";
 
 export default {
   name: "HomeView",
@@ -72,12 +73,12 @@ export default {
     };
   },
   mounted() {
-    this.getDerniersCocktails();
+    this.allCocktailNoAlcool();
   },
   methods: {
-    async getDerniersCocktails() {
+    async allCocktailNoAlcool() {
       try {
-        const response = await getDerniersCocktails();
+        const response = await allCocktailNoAlcool();
         const data = await response.json();
         if (data.drinks && data.drinks.length > 0) {
           this.cocktails = data.drinks.slice(0, 20);

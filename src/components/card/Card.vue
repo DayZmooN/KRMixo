@@ -1,5 +1,5 @@
 <template>
-  <a :href="'/' + idDrink">
+  <router-link :to="{ name: 'DetailView', params: { id: idDrink } }">
     <div class="card">
       <img :src="poster_path" alt="{{ title }}" />
 
@@ -24,7 +24,7 @@
         </div> -->
       </div>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script>
@@ -43,6 +43,7 @@ export default {
 .card {
   width: 200px;
   color: #fb7d8a;
+
   &:hover {
     width: auto;
     height: 100%;
@@ -79,31 +80,42 @@ export default {
       backdrop-filter: black 10px;
     }
   }
+
   img {
     // width: 300px;
     border-radius: 40px;
 
     // height: 207px;
   }
+
   @keyframes translation {
     0% {
-      transform: translateY(0); /* Position de départ */
+      transform: translateY(0);
+      /* Position de départ */
     }
+
     45% {
       transform: scale(1);
     }
+
     50% {
-      transform: translateY(2px); /* Position à mi-chemin */
+      transform: translateY(2px);
+      /* Position à mi-chemin */
     }
+
     53% {
       transform: scale(1.3);
     }
+
     55% {
-      transform: translateY(-7px); /* Position à mi-chemin */
+      transform: translateY(-7px);
+      /* Position à mi-chemin */
     }
+
     83% {
       transform: scale(1.1);
     }
+
     100% {
       transform: translateX(0);
       transform: scale(1);
@@ -119,18 +131,22 @@ export default {
 
       width: auto;
     }
+
     h1,
     h2,
     span {
       text-align: center;
       font: 900;
     }
+
     h1 {
       font-size: 1.3rem;
     }
+
     h2 {
       font-size: 1.1rem;
     }
+
     //   .type_cocktaim,
     //   .times,
     //   .heard {
