@@ -4,8 +4,8 @@
     <Search />
     <section class="home_card">
       <h3>Recent Mixes</h3>
-      <!-- Swiper Component -->
       <swiper
+        v-if="cocktails.length > 0"
         :slides-per-view="4"
         :space-between="20"
         navigation
@@ -29,15 +29,18 @@
 </template>
 
 <script>
-// Import des composants
 import Header from "@/components/header/Header.vue";
 import Search from "@/components/search/Search.vue";
 import Footer from "@/components/footer/Footer.vue";
 import Card from "@/components/card/Card.vue";
-import { Swiper, SwiperSlide } from "swiper/vue"; // Import de Swiper
-import "swiper/css"; // Import du style de Swiper
-import "swiper/css/navigation";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import SwiperCore, { Navigation } from "swiper";
 
+// Installer le module Navigation
+SwiperCore.use([Navigation]);
+
+import "swiper/css";
+import "swiper/css/navigation";
 import { getDerniersCocktails } from "@/services/ApiCocktailDb.js";
 
 export default {
@@ -47,8 +50,8 @@ export default {
     Search,
     Card,
     Footer,
-    Swiper, // Ajout de Swiper
-    SwiperSlide, // Ajout de SwiperSlide
+    Swiper,
+    SwiperSlide,
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -78,8 +81,6 @@ export default {
         const data = await response.json();
         if (data.drinks && data.drinks.length > 0) {
           this.cocktails = data.drinks.slice(0, 20);
-
-          // this.cocktails = data.drinks;
         } else {
           console.log("Aucun cocktail trouvé.");
         }
@@ -99,31 +100,35 @@ export default {
     text-align: left;
     margin: 20px auto;
   }
+
   .swiper {
     width: 100%;
-  }
-  .swiper-slide {
-    width: 300px;
-  }
-  .card_container {
-    overflow: scroll;
     display: flex;
-    width: 100%;
-    gap: 10px;
-    margin: auto 7px;
-    // grid-template-columns: repeat(auto-fill, minmax(290px, auto));
-    // grid-gap: 20px;
-    justify-items: center;
+    // height: 300px;
+    align-items: center;
+    margin: 10px auto;
+    padding: 20px;
   }
+
+  .swiper-slide {
+    height: 100%;
+    transition: all 1.3s ease;
+
+    &:hover {
+      width: 300px !important;
+    }
+  }
+
   .swiper-button-next,
   .swiper-button-prev {
     background-color: rgba(0, 0, 0, 0.5);
-    width: 40px;
-    height: 40px;
+    width: auto;
+    height: auto;
     position: absolute;
     top: 50%;
     z-index: 10;
     cursor: pointer;
+    border-radius: 99px;
   }
 
   .swiper-button-next {
