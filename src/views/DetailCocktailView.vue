@@ -2,23 +2,25 @@
   <Header />
   <article class="details-cocktail">
     <nav class="nav">
-      <div class="arrow">
-        <svg
-          width="9"
-          height="16"
-          viewBox="0 0 9 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M8 1L1 8L8 15"
-            stroke="#FB7D8A"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
+      <router-link :to="{ name: 'home' }">
+        <div class="arrow">
+          <svg
+            width="9"
+            height="16"
+            viewBox="0 0 9 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 1L1 8L8 15"
+              stroke="#FB7D8A"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </router-link>
       <h1 v-if="oneCocktail">{{ oneCocktail.strDrink }}</h1>
       <div class="heart">
         <svg
@@ -212,7 +214,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: auto 10px;
+    margin: auto;
+    padding: 10px;
 
     h1 {
       font-size: 1.2rem;
