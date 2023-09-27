@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'DetailView', params: { id: idDrink } }">
+  <router-link :to="{ name: 'DetailView', params: { idDrink: idDrink } }">
     <div class="card">
       <img :src="poster_path" alt="{{ title }}" />
 
@@ -34,7 +34,10 @@ export default {
     title: String,
     overview: String,
     poster_path: String,
-    idDrink: Number,
+    idDrink: {
+      type: [String, Number],
+      required: true,
+    },
   },
 };
 </script>
@@ -104,7 +107,7 @@ export default {
     }
 
     53% {
-      transform: scale(1.3);
+      transform: scale(1.2);
     }
 
     55% {
@@ -128,7 +131,6 @@ export default {
       bottom: 20px;
       left: 20px;
       z-index: 200;
-
       width: auto;
     }
 

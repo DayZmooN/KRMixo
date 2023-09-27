@@ -3,7 +3,7 @@
     <Header />
     <Search />
     <section class="home_card">
-      <h3>Recent Mixes</h3>
+      <h3>Mélanges récents</h3>
       <swiper
         v-if="cocktails.length > 0"
         :slides-per-view="4"
@@ -19,7 +19,8 @@
             :idDrink="cocktail.idDrink"
           />
         </swiper-slide>
-        <!-- Navigation buttons -->
+
+        <!-- Boutons de navigation -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
       </swiper>
@@ -32,7 +33,6 @@
 import Header from "@/components/header/Header.vue";
 import Footer from "@/components/footer/Footer.vue";
 import Search from "@/components/search/Search.vue";
-
 import Card from "@/components/card/Card.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperCore, { Navigation } from "swiper";
@@ -59,7 +59,7 @@ export default {
       console.log(swiper);
     };
     const onSlideChange = () => {
-      console.log("slide change");
+      console.log("Changement de diapositive");
     };
 
     return {
@@ -113,6 +113,7 @@ export default {
 
   .swiper-slide {
     height: 100%;
+    width: 200px !important;
     transition: all 1.3s ease;
 
     &:hover {

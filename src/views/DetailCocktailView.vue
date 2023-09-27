@@ -19,7 +19,7 @@
           />
         </svg>
       </div>
-      <h1>virgine</h1>
+      <h1 v-if="oneCocktail">{{ oneCocktail.strDrink }}</h1>
       <div class="heart">
         <svg
           width="22"
@@ -40,18 +40,14 @@
       </div>
     </nav>
     <div class="description-picture">
-      <p>lorem</p>
-      <p>lorem</p>
-      <p>lorem</p>
-      <p>lorem</p>
-      <p>lorem</p>
-      <p>lorem</p>
-      <p>lorem</p>
-      <p>lorem</p>
-      <p>lorem</p>
       <div class="picture">
-        <img src="" alt="" />
+        <img
+          v-if="oneCocktail"
+          :src="oneCocktail.strDrinkThumb"
+          :alt="oneCocktail.strDrink"
+        />
       </div>
+      <span v-if="oneCocktail">{{ oneCocktail.strInstructions }}</span>
     </div>
     <div class="wave-container">
       <svg
@@ -87,13 +83,24 @@
           </svg>
         </div>
       </div>
-      <div class="bubble-ingrediant">
-        <div class="picture-ingredients">
-          <img src="../../src/assets/Picture/karim.jpg" alt="" />
+      <div class="container-bubble">
+        <div class="bubble-ingrediant">
+          <div class="picture-ingredients">
+            <img src="../../src/assets/Picture/karim.jpg" alt="" />
+          </div>
+          <div class="qty-name">
+            <span>{{ oneCocktail.strMeasure1 }}</span>
+            <span>{{ oneCocktail.strIngredient1 }}</span>
+          </div>
         </div>
-        <div class="qty-name">
-          <span>8</span>
-          <span>lemon</span>
+        <div class="bubble-ingrediant">
+          <div class="picture-ingredients">
+            <img src="../../src/assets/Picture/karim.jpg" alt="" />
+          </div>
+          <div class="qty-name">
+            <span>{{ oneCocktail.strMeasure2 }}</span>
+            <span>{{ oneCocktail.strIngredient2 }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -105,11 +112,48 @@
 <script>
 import Header from "@/components/header/Header.vue";
 import Footer from "@/components/footer/Footer.vue";
+import { getDerniersCocktails } from "@/services/ApiCocktailDb";
 export default {
   name: "DetailView",
   components: {
     Header,
     Footer,
+  },
+  props: {
+    strDrink: String,
+    overview: String,
+    strDrinkThumb: String,
+    idDrink: {
+      type: [String, Number],
+      required: true,
+    },
+  },
+  data() {
+    return {
+      oneCocktail: {},
+    };
+  },
+  mounted() {
+    this.getDerniersCocktails();
+  },
+  methods: {
+    async getDerniersCocktails() {
+      const idDrink = this.$route.params.idDrink;
+      console.log("ID du cocktail à récupérer :", idDrink);
+      try {
+        const response = await getDerniersCocktails(idDrink);
+        const data = await response.json();
+        console.log("Données de la réponse API :", data);
+        if (data.drinks && data.drinks.length > 0) {
+          this.oneCocktail = data.drinks[0];
+          console.log("Premier élément du tableau drinks:", this.oneCocktail);
+        } else {
+          console.error("Aucun cocktail trouvé");
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'appel API:", error);
+      }
+    },
   },
 };
 </script>
@@ -127,11 +171,6 @@ header {
   width: 100%;
   background: #fff;
 
-  .description-picture {
-    background-color: #fef9e4;
-    // height: 100px;
-    width: 100%;
-  }
   .wave-container {
     // position: absolute;
     // overflow: hidden;
@@ -153,11 +192,13 @@ header {
         "M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,64C672,75,768,117,864,138.7C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
       );
     }
+
     50% {
       d: path(
         "M0,48L48,58.3C96,69,192,91,288,90.7C384,91,480,69,576,80C672,91,768,133,864,154.7C960,176,1056,176,1152,154.7C1248,133,1344,91,1392,69.3L1440,48L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
       );
     }
+
     80% {
       d: path(
         "M0,88L48,58.3C96,69,192,91,288,90.7C384,91,480,69,576,80C672,91,768,133,864,154.7C960,176,1056,176,1152,154.7C1248,133,1344,91,1392,69.3L1440,48L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
@@ -181,14 +222,43 @@ header {
       color: #ff00de;
     }
   }
+
   @keyframes neon6 {
     from {
       text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de,
         0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
     }
+
     to {
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de,
         0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+    }
+  }
+  .description-picture {
+    background-color: #fef9e4;
+    // height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: auto;
+    @media screen and (min-width: 600px) {
+      flex-direction: row;
+    }
+    @media screen and (min-width: 800px) {
+      flex-direction: row-reverse;
+    }
+    .picture {
+      width: 300px;
+      right: 10px;
+      margin: 20px auto;
+
+      img {
+        width: 100%;
+        border-radius: 999px;
+      }
     }
   }
   .containter-ingrediant {
@@ -196,36 +266,47 @@ header {
     height: 300px;
     background: #fff;
     padding: 20px;
-    overflow: scroll;
+    // overflow: scroll;
+
     .arrow_ingredients {
       width: 100%;
       display: flex;
       //   margin: 30px auto;
       gap: 10px;
     }
-    .bubble-ingrediant {
-      width: 100px;
-      height: 104px;
-      background: #fef9e4;
-      border-radius: 99px;
+    .container-bubble {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      border: 1px solid #fbe897;
-      img {
-        width: 90px;
-        height: 90px;
-        padding: 20px;
+      gap: 10px;
+      overflow: scroll;
+      padding: 20px;
+      width: 100%;
+      height: 100%;
+      .bubble-ingrediant {
+        width: 100px;
+        height: 104px;
+        background: #fef9e4;
         border-radius: 99px;
-      }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: 1px solid #fbe897;
 
-      .qty-name {
-        width: 100%;
-        padding: 10px;
-        text-align: center;
-        span {
-          font-size: 0.9rem;
+        img {
+          width: 90px;
+          height: 90px;
+          padding: 20px;
+          border-radius: 99px;
+        }
+
+        .qty-name {
+          width: 100%;
+          padding: 10px;
+          text-align: center;
+
+          span {
+            font-size: 0.9rem;
+          }
         }
       }
     }
