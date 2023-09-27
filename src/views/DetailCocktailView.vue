@@ -49,8 +49,16 @@
           :alt="oneCocktail.strDrink"
         />
       </div>
-      <span v-if="oneCocktail">{{ oneCocktail.strInstructions }}</span>
+      <div class="paragraphe-cocktail">
+        <div class="paragraphe-category">
+          <p v-if="oneCocktail">{{ oneCocktail.strInstructions }}</p>
+        </div>
+        <div class="category">
+          <span>{{ oneCocktail.strCategory }}</span>
+        </div>
+      </div>
     </div>
+
     <div class="wave-container">
       <svg
         class="wave"
@@ -86,22 +94,23 @@
         </div>
       </div>
       <div class="container-bubble">
-        <div class="bubble-ingrediant">
+        <!-- Ingrédients filtrés -->
+        <div
+          v-for="ingredient in filteredIngredients"
+          :key="ingredient.index"
+          class="bubble-ingrediant"
+        >
           <div class="picture-ingredients">
-            <img src="../../src/assets/Picture/karim.jpg" alt="" />
+            <img
+              v-if="!imageError[`strIngredient${ingredient.index}`]"
+              :src="getIngredientImageUrl(ingredient.name)"
+              alt=""
+              @error="handleImageError(`strIngredient${ingredient.index}`)"
+            />
           </div>
           <div class="qty-name">
-            <span>{{ oneCocktail.strMeasure1 }}</span>
-            <span>{{ oneCocktail.strIngredient1 }}</span>
-          </div>
-        </div>
-        <div class="bubble-ingrediant">
-          <div class="picture-ingredients">
-            <img src="../../src/assets/Picture/karim.jpg" alt="" />
-          </div>
-          <div class="qty-name">
-            <span>{{ oneCocktail.strMeasure2 }}</span>
-            <span>{{ oneCocktail.strIngredient2 }}</span>
+            <span>{{ ingredient.measure }}</span>
+            <span>{{ ingredient.name }}</span>
           </div>
         </div>
       </div>
@@ -115,6 +124,7 @@
 import Header from "@/components/header/Header.vue";
 import Footer from "@/components/footer/Footer.vue";
 import { getDerniersCocktails } from "@/services/ApiCocktailDb";
+
 export default {
   name: "DetailView",
   components: {
@@ -133,7 +143,24 @@ export default {
   data() {
     return {
       oneCocktail: {},
+      imageError: {},
     };
+  },
+  computed: {
+    filteredIngredients() {
+      const ingredients = [];
+      for (let i = 1; i <= 8; i++) {
+        const ingredientName = this.oneCocktail[`strIngredient${i}`];
+        if (ingredientName && !this.imageError[`strIngredient${i}`]) {
+          ingredients.push({
+            name: ingredientName,
+            measure: this.oneCocktail[`strMeasure${i}`],
+            index: i,
+          });
+        }
+      }
+      return ingredients;
+    },
   },
   mounted() {
     this.getDerniersCocktails();
@@ -141,20 +168,25 @@ export default {
   methods: {
     async getDerniersCocktails() {
       const idDrink = this.$route.params.idDrink;
-      console.log("ID du cocktail à récupérer :", idDrink);
       try {
         const response = await getDerniersCocktails(idDrink);
         const data = await response.json();
-        console.log("Données de la réponse API :", data);
         if (data.drinks && data.drinks.length > 0) {
           this.oneCocktail = data.drinks[0];
-          console.log("Premier élément du tableau drinks:", this.oneCocktail);
         } else {
           console.error("Aucun cocktail trouvé");
         }
       } catch (error) {
         console.error("Erreur lors de l'appel API:", error);
       }
+    },
+    getIngredientImageUrl(ingredientName) {
+      if (!ingredientName) return "";
+      const formattedName = ingredientName.toLowerCase().replace(/ /g, "_");
+      return `https://www.thecocktaildb.com/images/ingredients/${formattedName}-Medium.png`;
+    },
+    handleImageError(ingredientIndex) {
+      this.imageError = { ...this.imageError, [ingredientIndex]: true };
     },
   },
 };
@@ -171,21 +203,26 @@ header {
 
 .details-cocktail {
   width: 100%;
-  background: #fff;
+  background: #fef9e4;
 
   .wave-container {
-    // position: absolute;
     // overflow: hidden;
     width: 100%;
+    height: 50px;
+
+    @media screen and (min-width: 780px) {
+      height: 140px;
+    }
   }
 
   .wave {
     bottom: 0;
-    background: #fff;
+    background: #fcfcfc;
   }
 
   .wave-path {
-    animation: wave-path-animation 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: wave-path-animation 2s cubic-bezier(0.4, 0, 0.2, 1) alternate
+      infinite;
   }
 
   @keyframes wave-path-animation {
@@ -201,9 +238,9 @@ header {
       );
     }
 
-    80% {
+    100% {
       d: path(
-        "M0,88L48,58.3C96,69,192,91,288,90.7C384,91,480,69,576,80C672,91,768,133,864,154.7C960,176,1056,176,1152,154.7C1248,133,1344,91,1392,69.3L1440,48L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+        "M0,58L48,58.3C96,69,192,91,288,90.7C384,91,480,69,576,80C672,91,768,133,864,154.7C960,176,1056,176,1152,154.7C1248,133,1344,91,1392,69.3L1440,48L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
       );
     }
   }
@@ -237,6 +274,7 @@ header {
         0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
     }
   }
+
   .description-picture {
     background-color: #fef9e4;
     // height: 100px;
@@ -247,14 +285,18 @@ header {
     align-items: center;
     padding: 10px;
     margin: auto;
+
     @media screen and (min-width: 600px) {
       flex-direction: row;
     }
+
     @media screen and (min-width: 800px) {
       flex-direction: row-reverse;
+      max-width: 1000px;
     }
+
     .picture {
-      width: 300px;
+      width: 260px;
       right: 10px;
       margin: 20px auto;
 
@@ -263,20 +305,39 @@ header {
         border-radius: 999px;
       }
     }
+
+    .paragraphe-cocktail {
+      max-width: 300px;
+      .paragraphe-category {
+        p {
+          font-size: 1.1rem;
+        }
+      }
+      .category {
+        margin: 20px auto;
+        span {
+          font-size: 1.2rem;
+        }
+      }
+    }
   }
+
+  .arrow_ingredients {
+    width: 100%;
+    display: flex;
+    //   margin: 30px auto;
+    gap: 10px;
+  }
+
   .containter-ingrediant {
     width: 100%;
-    height: 300px;
+    height: auto;
     background: #fff;
-    padding: 20px;
+    // margin-bottom: 70px;
+    // padding: 20px;
     // overflow: scroll;
+    // margin: 10px auto;
 
-    .arrow_ingredients {
-      width: 100%;
-      display: flex;
-      //   margin: 30px auto;
-      gap: 10px;
-    }
     .container-bubble {
       display: flex;
       gap: 10px;
@@ -284,31 +345,39 @@ header {
       padding: 20px;
       width: 100%;
       height: 100%;
+      margin-bottom: 78px;
+
       .bubble-ingrediant {
-        width: 100px;
-        height: 104px;
+        width: 145px;
+        // height: 120px;
         background: #fef9e4;
-        border-radius: 99px;
+        border-radius: 999px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         border: 1px solid #fbe897;
 
-        img {
-          width: 90px;
+        // padding: 10px;
+        .picture-ingredients {
+          width: 99px;
           height: 90px;
-          padding: 20px;
-          border-radius: 99px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
         }
 
         .qty-name {
           width: 100%;
           padding: 10px;
           text-align: center;
+          display: block;
 
           span {
-            font-size: 0.9rem;
+            display: block;
+            font-size: 0.8rem;
           }
         }
       }

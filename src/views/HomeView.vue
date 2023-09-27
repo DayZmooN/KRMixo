@@ -9,8 +9,8 @@
         :slides-per-view="4"
         :space-between="20"
         navigation
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
+        @swiper="onSwiperRecent"
+        @slideChange="onSlideChangeRecent"
       >
         <swiper-slide v-for="cocktail in cocktails" :key="cocktail.idDrink">
           <Card
@@ -24,6 +24,20 @@
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
       </swiper>
+
+      <!-- Ajout du swiper pour les cocktails aléatoires sans alcool -->
+      <div class="randomCocktail">
+        <h1>Cocktails aléatoires sans alcool</h1>
+        <div class="swiper-slide">
+          <Card
+            v-for="randomCocktail in randomCocktails"
+            :key="randomCocktail.idDrink"
+            :title="randomCocktail.strDrink"
+            :poster_path="randomCocktail.strDrinkThumb"
+            :idDrink="randomCocktail.idDrink"
+          />
+        </div>
+      </div>
     </section>
     <Footer />
   </div>
@@ -43,6 +57,7 @@ SwiperCore.use([Navigation]);
 import "swiper/css";
 import "swiper/css/navigation";
 import { allCocktailNoAlcool } from "@/services/ApiCocktailDb.js";
+import { getRandomNoAlcool } from "@/services/ApiCocktailDb.js";
 
 export default {
   name: "HomeView",
@@ -55,25 +70,36 @@ export default {
     SwiperSlide,
   },
   setup() {
-    const onSwiper = (swiper) => {
+    const onSwiperRecent = (swiper) => {
       console.log(swiper);
     };
-    const onSlideChange = () => {
-      console.log("Changement de diapositive");
+    const onSlideChangeRecent = () => {
+      console.log("Changement de diapositive (récent)");
+    };
+
+    const onSwiperRandom = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChangeRandom = () => {
+      console.log("Changement de diapositive (aléatoire)");
     };
 
     return {
-      onSwiper,
-      onSlideChange,
+      onSwiperRecent,
+      onSlideChangeRecent,
+      onSwiperRandom,
+      onSlideChangeRandom,
     };
   },
   data() {
     return {
       cocktails: [],
+      randomCocktails: [],
     };
   },
   mounted() {
     this.allCocktailNoAlcool();
+    this.getRandomNoAlcool(); // Ajout de l'appel pour les cocktails aléatoires sans alcool
   },
   methods: {
     async allCocktailNoAlcool() {
@@ -84,6 +110,19 @@ export default {
           this.cocktails = data.drinks.slice(0, 20);
         } else {
           console.log("Aucun cocktail trouvé.");
+        }
+      } catch (erreur) {
+        console.error("Une erreur s'est produite :", erreur);
+      }
+    },
+    async getRandomNoAlcool() {
+      try {
+        const response = await getRandomNoAlcool();
+        const data = await response.json();
+        if (data.drinks && data.drinks.length > 0) {
+          this.randomCocktails = data.drinks.slice(0, 20);
+        } else {
+          console.log("Aucun cocktail aléatoire sans alcool trouvé.");
         }
       } catch (erreur) {
         console.error("Une erreur s'est produite :", erreur);
@@ -110,7 +149,9 @@ export default {
     margin: 10px auto;
     padding: 20px;
   }
-
+  .randomCocktail {
+    margin: 78px auto;
+  }
   .swiper-slide {
     height: 100%;
     width: 200px !important;
