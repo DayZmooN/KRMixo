@@ -1,6 +1,6 @@
 <template>
   <router-link :to="{ name: 'DetailView', params: { idDrink: idDrink } }">
-    <div class="card">
+    <div class="card" :idDrink="idDrink">
       <img :src="poster_path" alt="{{ title }}" />
 
       <div class="characteristic_card">
@@ -45,21 +45,22 @@ export default {
 <style scoped lang="scss">
 .card {
   width: 200px;
+  height: 100%;
   color: #fb7d8a;
 
   &:hover {
-    width: auto;
+    width: 220px;
     height: 100%;
     // background: #fb7d8a;
     color: #e1e1e1;
-    animation: translation 2s ease-in-out;
-    transition: all 10.6s ease-in-out both;
+    // animation: translation 2s ease-in-out;
+    transition: all 0.6s ease-in-out both;
     backdrop-filter: black 10px;
   }
 
   @media screen and (min-width: 780px) {
     width: 300px;
-    height: 100%;
+    // height: 300px;
     // height: 250px;
     //   max-width: 280px;
     margin: auto;
@@ -71,16 +72,17 @@ export default {
     border-radius: 70px;
     color: #fb7d8a;
     position: relative;
-    transition: all 10s ease-in-out;
+    transition: all 1s ease-in-out;
 
     &:hover {
-      width: auto;
-      height: 100%;
+      width: 350px;
+      // height: 300px;
       // background: #fb7d8a;
       color: #e1e1e1;
-      animation: translation 2s ease-in-out;
-      transition: all 10.6s ease-in-out both;
+      animation: translation 2s ease-in;
+      // transition: all 2.6s ease-in-out;
       backdrop-filter: black 10px;
+      z-index: 300;
     }
   }
 
@@ -97,31 +99,31 @@ export default {
       /* Position de départ */
     }
 
-    45% {
-      transform: scale(1);
-    }
+    // 45% {
+    //   transform: scale(1.12);
+    // }
 
     50% {
       transform: translateY(2px);
       /* Position à mi-chemin */
     }
 
-    53% {
-      transform: scale(1.2);
-    }
+    // 53% {
+    //   transform: scale(1.15);
+    // }
 
     55% {
       transform: translateY(-7px);
       /* Position à mi-chemin */
     }
 
-    83% {
-      transform: scale(1.1);
-    }
+    // 83% {
+    //   transform: scale(1);
+    // }
 
     100% {
       transform: translateX(0);
-      transform: scale(1);
+      // transform: scale(1);
     }
   }
 

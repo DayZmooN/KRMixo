@@ -6,10 +6,13 @@
       </div>
       <div class="search">
         <input
-          type="text"
           class="searchTerm"
+          type="text"
+          v-model="query"
+          @input="search"
           placeholder="Recherche ton cocktail..."
         />
+
         <button type="submit" class="searchButton">
           <img src="@/assets/icon/search.svg" alt="search" />
         </button>
@@ -20,7 +23,17 @@
 
 <script>
 export default {
-  name: "searchVue",
+  name: "SearchBar",
+  data() {
+    return {
+      query: "",
+    };
+  },
+  methods: {
+    search() {
+      this.$emit("search", this.query);
+    },
+  },
 };
 </script>
 
@@ -37,8 +50,10 @@ export default {
     max-width: 300px;
     margin: 15px auto;
     position: relative;
+
     .search_text {
       margin: 15px auto;
+
       span {
         color: #f37b30;
         font-size: 1.2rem;

@@ -10,7 +10,9 @@
         </label>
       </div>
       <div class="logo">
-        <img src="../../assets/logo.svg" alt="logo" />
+        <router-link :to="{ name: 'home' }">
+          <img src="../../assets/logo.svg" alt="logo" />
+        </router-link>
       </div>
       <div class="user">
         <!-- <img src="@Picture/karim.jpg" alt="" /> -->
@@ -128,6 +130,7 @@ header {
     }
     .logo {
       widows: 55px;
+      cursor: pointer;
       img {
         width: 100%;
       }

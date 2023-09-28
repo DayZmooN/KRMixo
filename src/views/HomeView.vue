@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header />
-    <Search />
+    <SearchBar @search="performSearch" />
     <section class="home_card">
       <h3>Mélanges récents</h3>
       <swiper
@@ -46,7 +46,7 @@
 <script>
 import Header from "@/components/header/Header.vue";
 import Footer from "@/components/footer/Footer.vue";
-import Search from "@/components/search/Search.vue";
+import SearchBar from "@/components/search/Search.vue";
 import Card from "@/components/card/Card.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperCore, { Navigation } from "swiper";
@@ -58,12 +58,13 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { allCocktailNoAlcool } from "@/services/ApiCocktailDb.js";
 import { getRandomNoAlcool } from "@/services/ApiCocktailDb.js";
+import { searchCocktail } from "@/services/ApiCocktailDb.js";
 
 export default {
   name: "HomeView",
   components: {
     Header,
-    Search,
+    SearchBar,
     Card,
     Footer,
     Swiper,
@@ -128,6 +129,11 @@ export default {
         console.error("Une erreur s'est produite :", erreur);
       }
     },
+    async performSearch(query) {
+      const response = await searchCocktail(query);
+      const data = await response.json();
+      this.cocktails = data.drinks || [];
+    },
   },
 };
 </script>
@@ -135,6 +141,8 @@ export default {
 <style scoped lang="scss">
 .home_card {
   width: 100%;
+  max-width: 98%;
+  margin: auto;
 
   h3 {
     text-align: left;

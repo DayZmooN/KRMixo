@@ -4,7 +4,7 @@ function allCocktailNoAlcool() {
   );
 }
 
-function getDerniersCocktails(idDrink) {
+function getOneCocktails(idDrink) {
   return fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=` + idDrink
   );
@@ -15,4 +15,15 @@ function getRandomNoAlcool() {
   );
 }
 
-export { allCocktailNoAlcool, getDerniersCocktails, getRandomNoAlcool };
+function searchCocktail(word) {
+  return fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${word}`
+  );
+}
+
+export {
+  allCocktailNoAlcool,
+  getOneCocktails,
+  getRandomNoAlcool,
+  searchCocktail,
+};

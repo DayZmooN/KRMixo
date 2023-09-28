@@ -1,26 +1,32 @@
 <template>
   <Header />
   <article class="details-cocktail">
-    <nav class="nav">
-      <router-link :to="{ name: 'home' }">
-        <div class="arrow">
-          <svg
-            width="9"
-            height="16"
-            viewBox="0 0 9 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8 1L1 8L8 15"
-              stroke="#FB7D8A"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </div>
-      </router-link>
+    <Nav v-if="oneCocktail" :cocktail="oneCocktail" />
+    <CocktailDescription v-if="oneCocktail" :cocktail="oneCocktail" />
+    <Ingredient
+      :ingredients="filteredIngredients"
+      :imageError="imageError"
+      @handleImageError="handleImageError"
+    />
+
+    <!-- <nav class="nav">
+      <div @click="goBack" class="arrow">
+        <svg
+          width="9"
+          height="16"
+          viewBox="0 0 9 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 1L1 8L8 15"
+            stroke="#FB7D8A"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
       <h1 v-if="oneCocktail">{{ oneCocktail.strDrink }}</h1>
       <div class="heart">
         <svg
@@ -40,8 +46,8 @@
           />
         </svg>
       </div>
-    </nav>
-    <div class="description-picture">
+    </nav> -->
+    <!-- <div class="description-picture">
       <div class="picture">
         <img
           v-if="oneCocktail"
@@ -71,7 +77,8 @@
           d="M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,64C672,75,768,117,864,138.7C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
         ></path>
       </svg>
-    </div>
+    </div> -->
+
     <div class="containter-ingrediant">
       <div class="arrow_ingredients">
         <span>Ingredients</span>
@@ -94,7 +101,6 @@
         </div>
       </div>
       <div class="container-bubble">
-        <!-- Ingrédients filtrés -->
         <div
           v-for="ingredient in filteredIngredients"
           :key="ingredient.index"
@@ -115,6 +121,18 @@
         </div>
       </div>
     </div>
+    <div class="container-cocktail">
+      <h3>Mélanges récents</h3>
+      <div class="cocktail">
+        <swiper-slide v-for="cocktail in cocktails" :key="cocktail.idDrink">
+          <Card
+            :title="cocktail.strDrink"
+            :poster_path="cocktail.strDrinkThumb"
+            :idDrink="cocktail.idDrink"
+          />
+        </swiper-slide>
+      </div>
+    </div>
   </article>
 
   <Footer />
@@ -122,21 +140,38 @@
 
 <script>
 import Header from "@/components/header/Header.vue";
+import Nav from "@/components/nav/NavigationHeader.vue";
+import CocktailDescription from "@/components/cocktailDescription/CocktailDescription.vue";
+import Ingredient from "@/components/ingredientList/IngredientsList.vue";
 import Footer from "@/components/footer/Footer.vue";
-import { getDerniersCocktails } from "@/services/ApiCocktailDb";
+
+import { getOneCocktails } from "@/services/ApiCocktailDb";
+import Card from "@/components/card/Card.vue";
+import { allCocktailNoAlcool } from "@/services/ApiCocktailDb.js";
+// import { Swiper } from "swiper/vue";
 
 export default {
   name: "DetailView",
   components: {
     Header,
+    Nav,
+    CocktailDescription,
+    Ingredient,
     Footer,
+    Card,
   },
   props: {
+    title: String,
     strDrink: String,
+    poster_path: String,
     overview: String,
     strDrinkThumb: String,
     idDrink: {
       type: [String, Number],
+      required: true,
+    },
+    ingredients: {
+      type: Array,
       required: true,
     },
   },
@@ -144,8 +179,11 @@ export default {
     return {
       oneCocktail: {},
       imageError: {},
+      // cocktail: {},
+      cocktails: [],
     };
   },
+
   computed: {
     filteredIngredients() {
       const ingredients = [];
@@ -162,14 +200,27 @@ export default {
       return ingredients;
     },
   },
+  watch: {
+    "$route.params.idDrink": {
+      immediate: true,
+      handler(newIdDrink, oldIdDrink) {
+        if (newIdDrink !== oldIdDrink) {
+          this.getOneCocktails();
+          this.allCocktailNoAlcool();
+        }
+      },
+    },
+  },
   mounted() {
-    this.getDerniersCocktails();
+    this.getOneCocktails();
+    this.allCocktailNoAlcool();
+    console.log(this.filteredIngredients);
   },
   methods: {
-    async getDerniersCocktails() {
+    async getOneCocktails() {
       const idDrink = this.$route.params.idDrink;
       try {
-        const response = await getDerniersCocktails(idDrink);
+        const response = await getOneCocktails(idDrink);
         const data = await response.json();
         if (data.drinks && data.drinks.length > 0) {
           this.oneCocktail = data.drinks[0];
@@ -188,6 +239,24 @@ export default {
     handleImageError(ingredientIndex) {
       this.imageError = { ...this.imageError, [ingredientIndex]: true };
     },
+    async allCocktailNoAlcool() {
+      try {
+        const response = await allCocktailNoAlcool();
+        const data = await response.json();
+        const currentIdDrink = this.$route.params.idDrink; // Obtenez l'idDrink actuel à partir des paramètres de la route
+
+        if (data.drinks && data.drinks.length > 0) {
+          // Filtrer les cocktails pour éliminer celui qui a le même idDrink que le cocktail actuel
+          this.cocktails = data.drinks
+            .filter((cocktail) => cocktail.idDrink !== currentIdDrink)
+            .slice(0, 20);
+        } else {
+          console.log("Aucun cocktail trouvé.");
+        }
+      } catch (erreur) {
+        console.error("Une erreur s'est produite :", erreur);
+      }
+    },
   },
 };
 </script>
@@ -204,6 +273,10 @@ header {
 .details-cocktail {
   width: 100%;
   background: #fef9e4;
+  @media screen and (min-width: 780px) {
+    width: auto;
+  }
+  // max-width: 1400px;
 
   .wave-container {
     // overflow: hidden;
@@ -245,82 +318,109 @@ header {
     }
   }
 
-  nav {
-    height: 40px;
-    background: #fef9e4;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: auto;
-    padding: 10px;
+  // nav {
+  //   height: 40px;
+  //   background: #fef9e4;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: space-between;
+  //   margin: auto;
+  //   padding: 20px;
 
-    h1 {
-      font-size: 1.2rem;
-      animation: neon6 1.5s ease-in-out infinite alternate;
-      line-height: 1;
-      text-decoration: none;
-      color: #ff00de;
-    }
-  }
+  //   @media screen and (min-width: 1300px) {
+  //     width: 100%;
+  //     max-width: 1200px;
+  //   }
+  //   @media screen and (min-width: 1400px) {
+  //     max-width: 1200px;
+  //   }
 
-  @keyframes neon6 {
-    from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de,
-        0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
-    }
+  //   h1 {
+  //     font-size: 1.2rem;
+  //     animation: neon6 2.5s ease-in-out infinite alternate;
+  //     line-height: 1;
+  //     text-decoration: none;
+  //     color: #fb7d8a;
 
-    to {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de,
-        0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
-    }
-  }
+  //     @media screen and (min-width: 780px) {
+  //       font-size: 1.5rem;
+  //     }
+  //   }
+  // }
 
-  .description-picture {
-    background-color: #fef9e4;
-    // height: 100px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    margin: auto;
+  // @keyframes neon6 {
+  //   from {
+  //     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fb7d8a,
+  //       0 0 70px #fb7d8a, 0 0 80px #fb7d8a, 0 0 100px #fb7d8a, 0 0 150px #fb7d8a;
+  //   }
 
-    @media screen and (min-width: 600px) {
-      flex-direction: row;
-    }
+  //   to {
+  //     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fb7d8a,
+  //       0 0 35px #fb7d8a, 0 0 40px #fb7d8a, 0 0 50px #fb7d8a, 0 0 75px #fb7d8a;
+  //   }
+  // }
 
-    @media screen and (min-width: 800px) {
-      flex-direction: row-reverse;
-      max-width: 1000px;
-    }
+  // .description-picture {
+  //   background-color: #fef9e4;
+  //   // height: 100px;
+  //   width: 100%;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   padding: 10px;
+  //   margin: auto;
 
-    .picture {
-      width: 260px;
-      right: 10px;
-      margin: 20px auto;
+  //   @media screen and (min-width: 600px) {
+  //     flex-direction: row;
+  //   }
 
-      img {
-        width: 100%;
-        border-radius: 999px;
-      }
-    }
+  //   @media screen and (min-width: 800px) {
+  //     flex-direction: row-reverse;
+  //     max-width: 1000px;
+  //   }
 
-    .paragraphe-cocktail {
-      max-width: 300px;
-      .paragraphe-category {
-        p {
-          font-size: 1.1rem;
-        }
-      }
-      .category {
-        margin: 20px auto;
-        span {
-          font-size: 1.2rem;
-        }
-      }
-    }
-  }
+  //   .picture {
+  //     width: 260px;
+  //     right: 10px;
+  //     margin: 20px auto;
+
+  //     img {
+  //       width: 100%;
+  //       border-radius: 999px;
+  //     }
+  //   }
+
+  //   .paragraphe-cocktail {
+  //     max-width: 300px;
+  //     @media screen and (min-width: 800px) {
+  //       flex-direction: row-reverse;
+  //       max-width: 500px;
+  //       margin: 10px auto;
+  //     }
+  //     .paragraphe-category {
+  //       width: 100%;
+  //       text-align: justify;
+  //       padding: 5px;
+  //       p {
+  //         font-size: 0.95rem;
+  //         font-weight: 500;
+  //         font: 400;
+  //         color: #fb7d8a;
+  //         line-height: 1.17rem;
+  //         @media screen and (min-width: 800px) {
+  //           font-size: 1.2rem;
+  //         }
+  //       }
+  //     }
+  //     .category {
+  //       margin: 20px auto;
+  //       span {
+  //         font-size: 1.2rem;
+  //       }
+  //     }
+  //   }
+  // }
 
   .arrow_ingredients {
     width: 100%;
@@ -333,6 +433,9 @@ header {
     width: 100%;
     height: auto;
     background: #fff;
+    // max-width: 1000px;
+    margin: auto;
+    padding: 20px;
     // margin-bottom: 70px;
     // padding: 20px;
     // overflow: scroll;
@@ -381,6 +484,19 @@ header {
           }
         }
       }
+    }
+  }
+  .container-cocktail {
+    margin-bottom: 90px;
+    width: 100%;
+    padding: 20px;
+
+    .cocktail {
+      display: flex;
+      gap: 10px;
+      overflow: scroll;
+      height: auto;
+      margin: 20px 5px;
     }
   }
 }

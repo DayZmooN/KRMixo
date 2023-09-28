@@ -2,10 +2,13 @@
   <footer>
     <div class="footer_name">
       <div class="icon">
-        <img src="../../assets/icon/home.svg" alt="" class="icone-rouge" />
+        <router-link :to="{ name: 'home' }">
+          <img src="../../assets/icon/home.svg" alt="" class="icone-svg" />
+        </router-link>
       </div>
+
       <div class="icon">
-        <div class="img">
+        <div class="icone-svg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -22,11 +25,7 @@
         </div>
       </div>
       <div class="icon">
-        <img
-          src="../../assets/icon/watch-list.svg"
-          alt=""
-          class="icone-rouge"
-        />
+        <img src="../../assets/icon/watch-list.svg" alt="" class="icone-svg" />
       </div>
     </div>
     <div class="footer_desktop">
@@ -61,6 +60,7 @@ footer {
   bottom: 0px;
   display: flex;
   align-content: center;
+  z-index: 999;
   //   background-color: #242a32;
 
   .footer_name {
@@ -81,7 +81,11 @@ footer {
       cursor: pointer;
       font-size: 2rem;
       height: 70px;
-
+      .icone-svg {
+        height: 100%;
+        margin: auto;
+        // text-align: center;
+      }
       .icone-personnalisable {
         fill: #ff5733;
         height: 100%;
