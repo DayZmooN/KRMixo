@@ -113,7 +113,12 @@
               alt=""
               @error="handleImageError(`strIngredient${ingredient.index}`)"
             />
+            <div v-else>
+              <span>{{ ingredient.name }}</span>
+              <span>{{ ingredient.measure }}</span>
+            </div>
           </div>
+
           <div class="qty-name">
             <span>{{ ingredient.measure }}</span>
             <span>{{ ingredient.name }}</span>
@@ -187,12 +192,13 @@ export default {
   computed: {
     filteredIngredients() {
       const ingredients = [];
-      for (let i = 1; i <= 8; i++) {
+      for (let i = 1; i <= 15; i++) {
         const ingredientName = this.oneCocktail[`strIngredient${i}`];
-        if (ingredientName && !this.imageError[`strIngredient${i}`]) {
+        const ingredientMeasure = this.oneCocktail[`strMeasure${i}`];
+        if (ingredientName) {
           ingredients.push({
             name: ingredientName,
-            measure: this.oneCocktail[`strMeasure${i}`],
+            measure: ingredientMeasure,
             index: i,
           });
         }
@@ -200,6 +206,7 @@ export default {
       return ingredients;
     },
   },
+
   watch: {
     "$route.params.idDrink": {
       immediate: true,
@@ -465,6 +472,8 @@ header {
         .picture-ingredients {
           width: 99px;
           height: 90px;
+          display: flex;
+          align-items: center;
 
           img {
             width: 100%;

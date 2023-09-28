@@ -19,7 +19,9 @@
       </div>
     </div>
     <div id="modal" class="modal">
-      <a href=""><span>categorys</span></a>
+      <router-link :to="{ name: 'category' }">
+        <span>categorys</span></router-link
+      >
       <a href=""><span>ingredients</span></a>
     </div>
   </header>

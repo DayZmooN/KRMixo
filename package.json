@@ -17,11 +17,12 @@
     "core-js": "^3.8.3",
     "font-awesome": "^4.7.0",
     "storyblok-vue": "^1.0.5",
-    "swiper": "^10.3.0",
+    "swiper": "^10.3.1",
     "vue": "^3.2.13",
     "vue-carrousel": "^1.0.5",
     "vue-router": "^4.0.3",
-    "vue-slick-carousel": "^1.0.6"
+    "vue-slick-carousel": "^1.0.6",
+    "vue3-carousel": "^0.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -36,7 +37,8 @@
     "eslint-plugin-vue": "^8.0.3",
     "prettier": "^2.4.1",
     "sass": "^1.32.7",
-    "sass-loader": "^12.0.0"
+    "sass-loader": "^12.0.0",
+    "vue-concise-slider": "^4.2.5"
   },
   "eslintConfig": {
     "root": true,

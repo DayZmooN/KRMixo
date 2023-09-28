@@ -9,8 +9,12 @@
     </div>
     <div class="paragraphe-cocktail">
       <div class="paragraphe-category">
-        <p v-if="cocktail">{{ cocktail.strInstructions }}</p>
+        <p
+          v-if="cocktail"
+          v-html="formattedInstructions.replace(/\n/g, '<br>')"
+        ></p>
       </div>
+
       <div class="category">
         <span v-if="cocktail">{{ cocktail.strCategory }}</span>
       </div>
@@ -31,6 +35,14 @@
 export default {
   props: {
     cocktail: Object,
+  },
+  computed: {
+    formattedInstructions() {
+      if (this.cocktail && this.cocktail.strInstructions) {
+        return this.cocktail.strInstructions.replace(/\./g, ".\n");
+      }
+      return "";
+    },
   },
 };
 </script>
@@ -76,13 +88,12 @@ export default {
     .paragraphe-category {
       width: 100%;
       text-align: justify;
-      padding: 5px;
       p {
         font-size: 0.95rem;
         font-weight: 500;
         font: 400;
         color: #fb7d8a;
-        line-height: 1.17rem;
+        line-height: 1.57rem;
         @media screen and (min-width: 800px) {
           font-size: 1.2rem;
         }
@@ -94,6 +105,45 @@ export default {
         font-size: 1.2rem;
       }
     }
+  }
+}
+.wave-container {
+  // overflow: hidden;
+  width: 100%;
+  height: 50px;
+
+  @media screen and (min-width: 780px) {
+    height: 140px;
+  }
+}
+
+.wave {
+  bottom: 0;
+  background: #fcfcfc;
+}
+
+.wave-path {
+  animation: wave-path-animation 2s cubic-bezier(0.4, 0, 0.2, 1) alternate
+    infinite;
+}
+
+@keyframes wave-path-animation {
+  0% {
+    d: path(
+      "M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,64C672,75,768,117,864,138.7C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+    );
+  }
+
+  50% {
+    d: path(
+      "M0,48L48,58.3C96,69,192,91,288,90.7C384,91,480,69,576,80C672,91,768,133,864,154.7C960,176,1056,176,1152,154.7C1248,133,1344,91,1392,69.3L1440,48L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+    );
+  }
+
+  100% {
+    d: path(
+      "M0,58L48,58.3C96,69,192,91,288,90.7C384,91,480,69,576,80C672,91,768,133,864,154.7C960,176,1056,176,1152,154.7C1248,133,1344,91,1392,69.3L1440,48L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+    );
   }
 }
 </style>

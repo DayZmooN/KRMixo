@@ -20,10 +20,20 @@ function searchCocktail(word) {
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${word}`
   );
 }
+function getCategory() {
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`);
+}
+function getCocktailsByCategory(category) {
+  return fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
+  );
+}
 
 export {
   allCocktailNoAlcool,
   getOneCocktails,
   getRandomNoAlcool,
   searchCocktail,
+  getCategory,
+  getCocktailsByCategory,
 };

@@ -50,6 +50,7 @@ export default {
 
   &:hover {
     width: 220px;
+    z-index: 300 !important;
     height: 100%;
     // background: #fb7d8a;
     color: #e1e1e1;
@@ -59,7 +60,7 @@ export default {
   }
 
   @media screen and (min-width: 780px) {
-    width: 300px;
+    width: 220px;
     // height: 300px;
     // height: 250px;
     //   max-width: 280px;
@@ -75,14 +76,15 @@ export default {
     transition: all 1s ease-in-out;
 
     &:hover {
-      width: 350px;
+      width: 300px;
       // height: 300px;
       // background: #fb7d8a;
       color: #e1e1e1;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
       animation: translation 2s ease-in;
       // transition: all 2.6s ease-in-out;
       backdrop-filter: black 10px;
-      z-index: 300;
+      z-index: 900;
     }
   }
 

@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Detail from "../views/DetailCocktailView.vue";
+import CategoryView from "../views/CategoryView.vue";
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     name: "DetailView",
     component: Detail,
     props: true, // This will automatically convert params to props
+  },
+  {
+    path: "/category", // Nouvelle route pour les catégories
+    name: "category",
+    component: CategoryView,
   },
 ];
 
