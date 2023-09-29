@@ -178,9 +178,14 @@ export default defineComponent({
   .carousel__slide--visible,
   .carousel__slide--active {
     transform: initial;
+    width: initial !important;
+  }
+  .carousel__track {
+    width: initial;
+    // gap: 10px !important;
   }
   .custom-carousel {
-    width: 100%;
+    // width: 100%;
     display: flex;
     // height: 300px;
     align-items: center;

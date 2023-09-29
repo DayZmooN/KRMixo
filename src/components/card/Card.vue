@@ -48,6 +48,7 @@ export default {
   // height: 100%;
   color: #fb7d8a;
   // margin: auto 10px;
+  margin-right: 10px;
 
   &:hover {
     width: 220px;

@@ -33,7 +33,9 @@
       <router-link :to="{ name: 'category' }">
         <span>categorys</span>
       </router-link>
-      <a href=""><span>ingredients</span></a>
+      <router-link :to="{ name: 'ingredient' }">
+        <span>ingredients</span>
+      </router-link>
     </div>
   </header>
 </template>

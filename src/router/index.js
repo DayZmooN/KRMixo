@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Detail from "../views/DetailCocktailView.vue";
 import CategoryView from "../views/CategoryView.vue";
+import IngredientView from "../views/IngredientView.vue";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: "/category", // Nouvelle route pour les catégories
     name: "category",
     component: CategoryView,
+  },
+  {
+    path: "/ingredient", // Nouvelle route pour les catégories
+    name: "ingredient",
+    component: IngredientView,
   },
 ];
 

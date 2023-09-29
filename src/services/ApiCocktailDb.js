@@ -28,6 +28,9 @@ function getCocktailsByCategory(category) {
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
   );
 }
+function getIngredient() {
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`);
+}
 
 export {
   allCocktailNoAlcool,
@@ -36,4 +39,5 @@ export {
   searchCocktail,
   getCategory,
   getCocktailsByCategory,
+  getIngredient,
 };

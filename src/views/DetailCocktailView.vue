@@ -79,7 +79,7 @@
       </svg>
     </div> -->
 
-    <div class="containter-ingrediant">
+    <!-- <div class="containter-ingrediant">
       <div class="arrow_ingredients">
         <span>Ingredients</span>
         <div class="arrow-right">
@@ -125,7 +125,8 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
     <div class="container-cocktail">
       <h3>Mélanges récents</h3>
       <div class="cocktail">
@@ -228,10 +229,10 @@ export default {
           });
         }
       }
+      console.log("Filtered Ingredients:", ingredients); // Pour le débogage
       return ingredients;
     },
   },
-
   watch: {
     "$route.params.idDrink": {
       immediate: true,
@@ -256,6 +257,7 @@ export default {
         const data = await response.json();
         if (data.drinks && data.drinks.length > 0) {
           this.oneCocktail = data.drinks[0];
+          console.log("One Cocktail:", this.oneCocktail); // Pour le débogage
         } else {
           console.error("Aucun cocktail trouvé");
         }
@@ -268,9 +270,9 @@ export default {
       const formattedName = ingredientName.toLowerCase().replace(/ /g, "_");
       return `https://www.thecocktaildb.com/images/ingredients/${formattedName}-Medium.png`;
     },
-    handleImageError(ingredientIndex) {
-      this.imageError = { ...this.imageError, [ingredientIndex]: true };
-    },
+    // handleImageError(ingredientIndex) {
+    //   this.imageError = { ...this.imageError, [ingredientIndex]: true };
+    // },
     async allCocktailNoAlcool() {
       try {
         const response = await allCocktailNoAlcool();
@@ -298,6 +300,9 @@ export default {
       if (this.currentSlide > 0) {
         this.currentSlide--;
       }
+    },
+    handleImageError(ingredientIndex) {
+      this.imageError = { ...this.imageError, [ingredientIndex]: true };
     },
   },
 };
@@ -464,71 +469,80 @@ header {
   //   }
   // }
 
-  .arrow_ingredients {
-    width: 100%;
-    display: flex;
-    //   margin: 30px auto;
-    gap: 10px;
+  // .arrow_ingredients {
+  //   width: 100%;
+  //   display: flex;
+  //   //   margin: 30px auto;
+  //   gap: 10px;
+  // }
+
+  // .containter-ingrediant {
+  //   width: 100%;
+  //   height: auto;
+  //   background: #fff;
+  //   // max-width: 1000px;
+  //   margin: auto;
+  //   padding: 20px;
+  //   // margin-bottom: 70px;
+  //   // padding: 20px;
+  //   // overflow: scroll;
+  //   // margin: 10px auto;
+
+  //   .container-bubble {
+  //     display: flex;
+  //     gap: 10px;
+  //     overflow: scroll;
+  //     padding: 20px;
+  //     width: 100%;
+  //     height: 100%;
+  //     margin-bottom: 78px;
+
+  //     .bubble-ingrediant {
+  //       width: 145px;
+  //       // height: 120px;
+  //       background: #fef9e4;
+  //       border-radius: 999px;
+  //       display: flex;
+  //       justify-content: center;
+  //       align-items: center;
+  //       flex-direction: column;
+  //       border: 1px solid #fbe897;
+
+  //       // padding: 10px;
+  //       .picture-ingredients {
+  //         width: 99px;
+  //         height: 90px;
+  //         display: flex;
+  //         align-items: center;
+
+  //         img {
+  //           width: 100%;
+  //           height: 100%;
+  //         }
+  //       }
+
+  //       .qty-name {
+  //         width: 100%;
+  //         padding: 10px;
+  //         text-align: center;
+  //         display: block;
+
+  //         span {
+  //           display: block;
+  //           font-size: 0.8rem;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  .carousel__slide,
+  .carousel__slide--visible,
+  .carousel__slide--active {
+    transform: initial;
+    width: initial !important;
   }
-
-  .containter-ingrediant {
-    width: 100%;
-    height: auto;
-    background: #fff;
-    // max-width: 1000px;
-    margin: auto;
-    padding: 20px;
-    // margin-bottom: 70px;
-    // padding: 20px;
-    // overflow: scroll;
-    // margin: 10px auto;
-
-    .container-bubble {
-      display: flex;
-      gap: 10px;
-      overflow: scroll;
-      padding: 20px;
-      width: 100%;
-      height: 100%;
-      margin-bottom: 78px;
-
-      .bubble-ingrediant {
-        width: 145px;
-        // height: 120px;
-        background: #fef9e4;
-        border-radius: 999px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        border: 1px solid #fbe897;
-
-        // padding: 10px;
-        .picture-ingredients {
-          width: 99px;
-          height: 90px;
-          display: flex;
-          align-items: center;
-
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-
-        .qty-name {
-          width: 100%;
-          padding: 10px;
-          text-align: center;
-          display: block;
-
-          span {
-            display: block;
-            font-size: 0.8rem;
-          }
-        }
-      }
-    }
+  .carousel__slide {
+    width: 99px !important;
   }
   .container-cocktail {
     margin-bottom: 90px;
@@ -538,6 +552,7 @@ header {
     .carousel__slide--visible,
     .carousel__slide--active {
       transform: initial;
+      width: initial !important;
     }
   }
 }

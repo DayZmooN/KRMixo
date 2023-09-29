@@ -53,7 +53,7 @@ export default {
 </script>
 <style scoped lang="scss">
 nav {
-  height: 40px;
+  // height: 40px;
   background: #fef9e4;
   display: flex;
   align-items: center;
@@ -70,7 +70,7 @@ nav {
   }
 
   h1 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     animation: neon6 2.5s ease-in-out infinite alternate;
     line-height: 1;
     text-decoration: none;
