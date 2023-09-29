@@ -2,7 +2,12 @@
   <header>
     <div class="header-row">
       <div class="burger">
-        <input id="checkbox" type="checkbox" />
+        <input
+          id="checkbox"
+          type="checkbox"
+          v-model="isChecked"
+          @change="toggleModal"
+        />
         <label class="toggle" for="checkbox">
           <div id="bar1" class="bars"></div>
           <div id="bar2" class="bars"></div>
@@ -14,14 +19,20 @@
           <img src="../../assets/logo.svg" alt="logo" />
         </router-link>
       </div>
-      <div class="user">
-        <!-- <img src="@Picture/karim.jpg" alt="" /> -->
-      </div>
+      <div class="user"></div>
     </div>
-    <div id="modal" class="modal">
+    <div
+      id="modal"
+      class="modal"
+      :style="{
+        display: modalDisplay,
+        opacity: modalOpacity,
+        zIndex: modalZIndex,
+      }"
+    >
       <router-link :to="{ name: 'category' }">
-        <span>categorys</span></router-link
-      >
+        <span>categorys</span>
+      </router-link>
       <a href=""><span>ingredients</span></a>
     </div>
   </header>
@@ -30,29 +41,32 @@
 <script>
 export default {
   name: "headerVue",
+  data() {
+    return {
+      isChecked: false,
+      modalDisplay: "none",
+      modalOpacity: 0,
+      modalZIndex: -1,
+    };
+  },
+  methods: {
+    toggleModal() {
+      if (this.isChecked) {
+        this.modalDisplay = "flex";
+        setTimeout(() => {
+          this.modalOpacity = 1;
+          this.modalZIndex = 999;
+        }, 10);
+      } else {
+        this.modalOpacity = 0;
+        setTimeout(() => {
+          this.modalDisplay = "none";
+          this.modalZIndex = -1;
+        }, 500);
+      }
+    },
+  },
 };
-
-document.addEventListener("DOMContentLoaded", function () {
-  const checkbox = document.getElementById("checkbox");
-  const modal = document.getElementById("modal");
-
-  checkbox.addEventListener("change", function () {
-    if (this.checked) {
-      modal.style.display = "flex";
-      // body.style.overflow = "hidden";
-      setTimeout(() => {
-        modal.style.opacity = 1;
-        modal.style.zIndex = 999;
-      }, 10);
-    } else {
-      modal.style.display = "none";
-      modal.style.opacity = 0;
-      setTimeout(() => {
-        modal.style.display = "none";
-      }, 500);
-    }
-  });
-});
 </script>
 
 <style scoped lang="scss">
