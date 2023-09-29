@@ -45,13 +45,14 @@ export default {
 <style scoped lang="scss">
 .card {
   width: 200px;
-  height: 100%;
+  // height: 100%;
   color: #fb7d8a;
+  // margin: auto 10px;
 
   &:hover {
     width: 220px;
     z-index: 300 !important;
-    height: 100%;
+    // height: 100%;
     // background: #fb7d8a;
     color: #e1e1e1;
     // animation: translation 2s ease-in-out;
@@ -64,7 +65,7 @@ export default {
     // height: 300px;
     // height: 250px;
     //   max-width: 280px;
-    margin: auto;
+    margin: auto 10px;
     // border: 1px solid #e1e1e1;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -85,6 +86,7 @@ export default {
       // transition: all 2.6s ease-in-out;
       backdrop-filter: black 10px;
       z-index: 900;
+      background: pink;
     }
   }
 
@@ -142,7 +144,15 @@ export default {
     h2,
     span {
       text-align: center;
-      font: 900;
+      font-size: 1.05rem;
+
+      &:hover {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      }
+      // font: 900;
+      @media screen and (min-width: 780px) {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      }
     }
 
     h1 {

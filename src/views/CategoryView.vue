@@ -1,11 +1,11 @@
 <template>
+  <Header />
+
   <div class="category">
-    <div class="container-category">
-      <Category
-        :categories="categories"
-        @categorySelected="fetchCocktailsByCategory"
-      />
-    </div>
+    <Category
+      :categories="categories"
+      @categorySelected="getCocktailsByCategory"
+    />
     <div class="card-category" v-if="selectedCocktails.length > 0">
       <Card
         v-for="cocktail in selectedCocktails"
@@ -16,10 +16,15 @@
       />
     </div>
   </div>
+  <Search />
+  <Footer />
 </template>
 
 <script>
+import Header from "@/components/header/Header.vue";
+import Footer from "@/components/footer/Footer.vue";
 import Category from "@/components/category/Category.vue";
+import Search from "@/components/search/SearchView.vue";
 import {
   getCategory,
   getCocktailsByCategory,
@@ -30,7 +35,10 @@ export default {
   name: "CategoryView",
   components: {
     Category,
+    Search,
     Card,
+    Header,
+    Footer,
   },
   data() {
     return {
@@ -40,6 +48,7 @@ export default {
   },
   mounted() {
     this.getCategory();
+    this.getCocktailsByCategory("Ordinary Drink");
   },
   methods: {
     async getCategory() {
@@ -61,7 +70,7 @@ export default {
         );
       }
     },
-    async fetchCocktailsByCategory(category) {
+    async getCocktailsByCategory(category) {
       try {
         const response = await getCocktailsByCategory(category);
         if (response.ok) {
@@ -80,19 +89,25 @@ export default {
         );
       }
     },
+    handleClick(category) {
+      this.$emit("categorySelected", category);
+    },
   },
 };
 </script>
 <style scoped lang="scss">
 .category {
   width: 100%;
+
   .category_container {
     background: blue;
   }
+
   .card-category {
     display: flex;
     gap: 16px;
     padding: 16px;
+    justify-content: center;
     flex-wrap: wrap;
     margin: auto;
   }

@@ -129,13 +129,19 @@
     <div class="container-cocktail">
       <h3>Mélanges récents</h3>
       <div class="cocktail">
-        <swiper-slide v-for="cocktail in cocktails" :key="cocktail.idDrink">
-          <Card
-            :title="cocktail.strDrink"
-            :poster_path="cocktail.strDrinkThumb"
-            :idDrink="cocktail.idDrink"
-          />
-        </swiper-slide>
+        <Carousel v-bind="settings" :breakpoints="breakpoints">
+          <Slide v-for="cocktail in cocktails" :key="cocktail.idDrink">
+            <Card
+              :title="cocktail.strDrink"
+              :poster_path="cocktail.strDrinkThumb"
+              :idDrink="cocktail.idDrink"
+            />
+          </Slide>
+
+          <template #addons>
+            <Navigation />
+          </template>
+        </Carousel>
       </div>
     </div>
   </article>
@@ -154,6 +160,8 @@ import { getOneCocktails } from "@/services/ApiCocktailDb";
 import Card from "@/components/card/Card.vue";
 import { allCocktailNoAlcool } from "@/services/ApiCocktailDb.js";
 // import { Swiper } from "swiper/vue";
+import { Carousel, Navigation, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
 
 export default {
   name: "DetailView",
@@ -164,6 +172,9 @@ export default {
     Ingredient,
     Footer,
     Card,
+    Carousel,
+    Slide,
+    Navigation,
   },
   props: {
     title: String,
@@ -186,6 +197,20 @@ export default {
       imageError: {},
       // cocktail: {},
       cocktails: [],
+      settings: {
+        itemsToShow: 1,
+        snapAlign: "center",
+      },
+      breakpoints: {
+        700: {
+          itemsToShow: 3.5,
+          snapAlign: "center",
+        },
+        1024: {
+          itemsToShow: 5,
+          snapAlign: "start",
+        },
+      },
     };
   },
 
@@ -262,6 +287,16 @@ export default {
         }
       } catch (erreur) {
         console.error("Une erreur s'est produite :", erreur);
+      }
+    },
+    nextSlide() {
+      if (this.currentSlide < this.cocktails.length - this.slidesToShow) {
+        this.currentSlide++;
+      }
+    },
+    prevSlide() {
+      if (this.currentSlide > 0) {
+        this.currentSlide--;
       }
     },
   },
@@ -499,13 +534,10 @@ header {
     margin-bottom: 90px;
     width: 100%;
     padding: 20px;
-
-    .cocktail {
-      display: flex;
-      gap: 10px;
-      overflow: scroll;
-      height: auto;
-      margin: 20px 5px;
+    .carousel__slide,
+    .carousel__slide--visible,
+    .carousel__slide--active {
+      transform: initial;
     }
   }
 }

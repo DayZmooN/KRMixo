@@ -2,7 +2,6 @@
   <div class="home">
     <Header />
     <SearchBar @search="performSearch" />
-    <Category :categories="categories" />
     <section class="home_card">
       <h3>Mélanges récents</h3>
 
@@ -21,18 +20,22 @@
         </template>
       </Carousel>
 
-      <div class="randomCocktail">
-        <h1>Cocktails aléatoires sans alcool</h1>
-        <div class="container-cocktail">
+      <h1>Boissons aléatoires</h1>
+      <Carousel v-bind="settings" :breakpoints="breakpoints">
+        <Slide
+          v-for="randomCocktail in randomCocktails"
+          :key="randomCocktail.idDrink"
+        >
           <Card
-            v-for="randomCocktail in randomCocktails"
-            :key="randomCocktail.idDrink"
             :title="randomCocktail.strDrink"
             :poster_path="randomCocktail.strDrinkThumb"
             :idDrink="randomCocktail.idDrink"
           />
-        </div>
-      </div>
+        </Slide>
+        <template #addons>
+          <Navigation />
+        </template>
+      </Carousel>
     </section>
     <Footer />
   </div>
@@ -42,7 +45,6 @@ import { defineComponent } from "vue";
 import Header from "@/components/header/Header.vue";
 import Footer from "@/components/footer/Footer.vue";
 import SearchBar from "@/components/search/SearchView.vue";
-import Category from "@/components/category/Category.vue";
 
 import Card from "@/components/card/Card.vue";
 import { Carousel, Navigation, Slide } from "vue3-carousel";
@@ -59,7 +61,6 @@ export default defineComponent({
   components: {
     Header,
     SearchBar,
-    Category,
     Card,
     Footer,
     Carousel,
@@ -98,8 +99,7 @@ export default defineComponent({
   },
   mounted() {
     this.allCocktailNoAlcool();
-    this.getRandomNoAlcool();
-    this.getCategory();
+    this.getRandomNoAlcool("Cocktail");
   },
   methods: {
     async allCocktailNoAlcool() {
@@ -107,7 +107,7 @@ export default defineComponent({
         const response = await allCocktailNoAlcool();
         const data = await response.json();
         if (data.drinks && data.drinks.length > 0) {
-          this.cocktails = data.drinks.slice(0, 20);
+          this.cocktails = data.drinks.slice(0, 10);
         } else {
           console.log("Aucun cocktail trouvé.");
         }
@@ -115,19 +115,36 @@ export default defineComponent({
         console.error("Une erreur s'est produite :", erreur);
       }
     },
+    // async getRandomNoAlcool() {
+    //   try {
+    //     const response = await getRandomNoAlcool();
+    //     const data = await response.json();
+    //     if (data.drinks && data.drinks.length > 0) {
+    //       this.randomCocktails = data.drinks.slice(0, 20);
+    //     } else {
+    //       console.log("Aucun cocktail aléatoire sans alcool trouvé.");
+    //     }
+    //   } catch (erreur) {
+    //     console.error("Une erreur s'est produite :", erreur);
+    //   }
+    // },
     async getRandomNoAlcool() {
       try {
-        const response = await getRandomNoAlcool();
-        const data = await response.json();
-        if (data.drinks && data.drinks.length > 0) {
-          this.randomCocktails = data.drinks.slice(0, 20);
-        } else {
-          console.log("Aucun cocktail aléatoire sans alcool trouvé.");
+        this.randomCocktails = [];
+        for (let i = 0; i < 15; i++) {
+          const response = await getRandomNoAlcool();
+          const data = await response.json();
+          if (data.drinks && data.drinks.length > 0) {
+            this.randomCocktails.push(...data.drinks);
+          } else {
+            console.log("Aucun cocktail aléatoire sans alcool trouvé.");
+          }
         }
       } catch (erreur) {
         console.error("Une erreur s'est produite :", erreur);
       }
     },
+
     async performSearch(query) {
       const response = await searchCocktail(query);
       const data = await response.json();
@@ -143,26 +160,6 @@ export default defineComponent({
         this.currentSlide--;
       }
     },
-    // async getCategory() {
-    //   try {
-    //     const response = await getCategory();
-    //     if (response.ok) {
-    //       const data = await response.json();
-    //       this.categories = data.drinks;
-    //       this.showCategories = true;
-    //     } else {
-    //       console.error(
-    //         "Erreur lors de la récupération des catégories: ",
-    //         response.status
-    //       );
-    //     }
-    //   } catch (error) {
-    //     console.error(
-    //       "Une erreur s'est produite lors de la récupération des catégories: ",
-    //       error
-    //     );
-    //   }
-    // },
   },
 });
 </script>
@@ -177,7 +174,11 @@ export default defineComponent({
     text-align: left;
     margin: 20px auto;
   }
-
+  .carousel__slide,
+  .carousel__slide--visible,
+  .carousel__slide--active {
+    transform: initial;
+  }
   .custom-carousel {
     width: 100%;
     display: flex;
@@ -185,11 +186,19 @@ export default defineComponent({
     align-items: center;
     margin: 10px auto;
     padding: 20px;
-    gap: 10px;
   }
-
+  h1 {
+    margin: 20px auto;
+  }
+  .carousel {
+    margin-bottom: 80px;
+  }
   .randomCocktail {
     margin: 78px auto;
+    .container-cocktail {
+      display: flex;
+      gap: 10px;
+    }
   }
 
   // .swiper-slide {
