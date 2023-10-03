@@ -45,29 +45,19 @@ export default {
 <style scoped lang="scss">
 .card {
   width: 130px;
-  // height: 100%;
   color: #fb7d8a;
-  // margin: auto 10px;
   margin-right: 10px;
 
   &:hover {
-    width: 220px;
     z-index: 300 !important;
-    // height: 100%;
-    // background: #fb7d8a;
     color: #e1e1e1;
-    // animation: translation 2s ease-in-out;
     transition: all 0.6s ease-in-out both;
     backdrop-filter: black 10px;
   }
 
   @media screen and (min-width: 780px) {
     width: 170px;
-    // height: 300px;
-    // height: 250px;
-    //   max-width: 280px;
     margin: auto 10px;
-    // border: 1px solid #e1e1e1;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     // background: url("~@Picture/back_card.svg");
@@ -75,16 +65,13 @@ export default {
     border-radius: 70px;
     color: #fb7d8a;
     position: relative;
-    transition: all 1s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     &:hover {
-      width: 300px;
-      // height: 300px;
-      // background: #fb7d8a;
+      width: 175px;
       color: #e1e1e1;
       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      animation: translation 2s ease-in;
-      // transition: all 2.6s ease-in-out;
+      animation: translation 0.3s ease-in-out;
       backdrop-filter: black 10px;
       z-index: 900;
       background: pink;

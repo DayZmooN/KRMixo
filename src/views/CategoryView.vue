@@ -1,14 +1,14 @@
 <template>
   <Header />
-
+  <Search />
   <div class="category">
     <Category
       :categories="categories"
       @categorySelected="getCocktailsByCategory"
     />
-    <div class="card-category" v-if="selectedCocktails.length > 0">
+    <div class="card-category" v-if="paginatedCocktails.length > 0">
       <Card
-        v-for="cocktail in selectedCocktails"
+        v-for="cocktail in paginatedCocktails"
         :key="cocktail.idDrink"
         :title="cocktail.strDrink"
         :poster_path="cocktail.strDrinkThumb"
@@ -16,7 +16,12 @@
       />
     </div>
   </div>
-  <Search />
+
+  <PaginationComponent
+    :currentPage="currentPage"
+    :maxPage="maxPage"
+    @updatePage="updatePage"
+  />
   <Footer />
 </template>
 
@@ -25,6 +30,7 @@ import Header from "@/components/header/Header.vue";
 import Footer from "@/components/footer/Footer.vue";
 import Category from "@/components/category/Category.vue";
 import Search from "@/components/search/SearchView.vue";
+import PaginationComponent from "@/components/pagination/PaginationComponent.vue";
 import {
   getCategory,
   getCocktailsByCategory,
@@ -38,13 +44,26 @@ export default {
     Search,
     Card,
     Header,
+    PaginationComponent,
     Footer,
   },
   data() {
     return {
       categories: [],
       selectedCocktails: [],
+      currentPage: 1,
+      itemsPerPage: 12,
     };
+  },
+  computed: {
+    paginatedCocktails() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.selectedCocktails.slice(start, end);
+    },
+    maxPage() {
+      return Math.ceil(this.selectedCocktails.length / this.itemsPerPage);
+    },
   },
   mounted() {
     this.getCategory();
@@ -89,12 +108,13 @@ export default {
         );
       }
     },
-    handleClick(category) {
-      this.$emit("categorySelected", category);
+    updatePage(page) {
+      this.currentPage = page;
     },
   },
 };
 </script>
+
 <style scoped lang="scss">
 .category {
   width: 100%;
@@ -111,5 +131,10 @@ export default {
     flex-wrap: wrap;
     margin: auto;
   }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 </style>

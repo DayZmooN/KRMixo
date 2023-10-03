@@ -8,14 +8,23 @@
         @ingredientSelected="getCocktailsByIngredient"
       />
     </div>
-    <div class="card-ingredient" v-if="selectedCocktails.length > 0">
+    <div class="card-ingredient" v-if="paginatedCocktails.length > 0">
       <Card
-        v-for="cocktail in selectedCocktails"
+        v-for="cocktail in paginatedCocktails"
         :key="cocktail.idDrink"
         :title="cocktail.strDrink"
         :poster_path="cocktail.strDrinkThumb"
         :idDrink="cocktail.idDrink"
       />
+    </div>
+    <div class="pagination">
+      <button @click="currentPage--" :disabled="currentPage <= 1">
+        Précédent
+      </button>
+      <span>Page {{ currentPage }} sur {{ maxPage }}</span>
+      <button @click="currentPage++" :disabled="currentPage >= maxPage">
+        Suivant
+      </button>
     </div>
     <Footer />
   </div>
@@ -46,6 +55,8 @@ export default {
     return {
       ingredients: [],
       selectedCocktails: [],
+      currentPage: 1,
+      itemsPerPage: 10,
       settings: {
         itemsToShow: 1,
         snapAlign: "center",
@@ -61,6 +72,16 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    paginatedCocktails() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.selectedCocktails.slice(start, end);
+    },
+    maxPage() {
+      return Math.ceil(this.selectedCocktails.length / this.itemsPerPage);
+    },
   },
   mounted() {
     this.getIngredient();
@@ -108,22 +129,23 @@ export default {
     async performSearch(ingredientWord) {
       try {
         const response = await searchIngredient(ingredientWord);
-        const text = await response.text();
-        console.log("Server Response (performSearch):", text);
-
-        if (text) {
+        if (response && response.ok) {
+          const text = await response.text();
+          if (!text) {
+            console.warn("Réponse vide de l'API");
+            this.selectedCocktails = [];
+            return;
+          }
           const data = JSON.parse(text);
           this.selectedCocktails = data.drinks || [];
         } else {
-          console.warn("Empty response received from server.");
-          this.selectedCocktails = [];
-          alert("No results found for your search.");
+          console.error(
+            "Erreur lors de la recherche des cocktails:",
+            response.status
+          );
         }
       } catch (error) {
-        console.error(
-          "Une erreur s'est produite lors de la recherche d'ingrédients:",
-          error
-        );
+        console.error("Erreur lors de la recherche des cocktails:", error);
       }
     },
   },
