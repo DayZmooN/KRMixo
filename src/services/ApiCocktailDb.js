@@ -24,6 +24,11 @@ function searchCocktail(word) {
 function getCategory() {
   return fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`);
 }
+function getSeachCategory(searchCategory) {
+  return fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${searchCategory}`
+  );
+}
 function getCocktailsByCategory(category) {
   return fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
@@ -52,4 +57,5 @@ export {
   getIngredient,
   getCocktailsByIngredient,
   searchIngredient,
+  getSeachCategory,
 };

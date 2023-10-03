@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <Search />
+  <Search @search="performSearch" />
   <div class="category">
     <Category
       :categories="categories"
@@ -8,8 +8,8 @@
     />
     <div class="card-category" v-if="paginatedCocktails.length > 0">
       <Card
-        v-for="cocktail in paginatedCocktails"
-        :key="cocktail.idDrink"
+        v-for="(cocktail, index) in paginatedCocktails"
+        :key="cocktail.idDrink || `defaultKey-${index}`"
         :title="cocktail.strDrink"
         :poster_path="cocktail.strDrinkThumb"
         :idDrink="cocktail.idDrink"
@@ -34,6 +34,7 @@ import PaginationComponent from "@/components/pagination/PaginationComponent.vue
 import {
   getCategory,
   getCocktailsByCategory,
+  getSeachCategory,
 } from "@/services/ApiCocktailDb.js";
 import Card from "@/components/card/Card.vue";
 
@@ -110,6 +111,28 @@ export default {
     },
     updatePage(page) {
       this.currentPage = page;
+    },
+    async performSearch(searchCategory) {
+      try {
+        const response = await getSeachCategory(searchCategory);
+        if (response && response.ok) {
+          const text = await response.text();
+          if (!text) {
+            console.warn("Réponse vide de l'API");
+            this.selectedCocktails = [];
+            return;
+          }
+          const data = JSON.parse(text);
+          this.selectedCocktails = data.drinks || [];
+        } else {
+          console.error(
+            "Erreur lors de la recherche des cocktails:",
+            response.status
+          );
+        }
+      } catch (error) {
+        console.error("Erreur lors de la recherche des cocktails:", error);
+      }
     },
   },
 };
