@@ -169,6 +169,7 @@ export default {
   }
   .carousel__track {
     width: initial !important;
+    gap: 17px;
   }
   .carousel__slide,
   .carousel__slide--visible,
@@ -212,6 +213,10 @@ export default {
         font-size: 0.8rem;
       }
     }
+  }
+  .carousel__track {
+    width: initial !important;
+    gap: 17px !important;
   }
 }
 </style>

@@ -44,7 +44,7 @@ export default {
 
 <style scoped lang="scss">
 .card {
-  width: 200px;
+  width: 130px;
   // height: 100%;
   color: #fb7d8a;
   // margin: auto 10px;
@@ -62,7 +62,7 @@ export default {
   }
 
   @media screen and (min-width: 780px) {
-    width: 220px;
+    width: 170px;
     // height: 300px;
     // height: 250px;
     //   max-width: 280px;
@@ -88,6 +88,12 @@ export default {
       backdrop-filter: black 10px;
       z-index: 900;
       background: pink;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    width: 190px;
+    &:hover {
+      width: 300px;
     }
   }
 
@@ -146,7 +152,7 @@ export default {
     span {
       text-align: center;
       font-size: 1.05rem;
-
+      box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
       &:hover {
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
       }

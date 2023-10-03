@@ -167,8 +167,17 @@ export default defineComponent({
 <style scoped lang="scss">
 .home_card {
   width: 100%;
-  max-width: 98%;
+  max-width: 80%;
   margin: auto;
+  @media screen and (min-width: 768px) {
+    max-width: 760px;
+  }
+  @media screen and (min-width: 1028px) {
+    max-width: 1024px;
+  }
+  @media screen and (min-width: 1440px) {
+    max-width: 1440px;
+  }
 
   h3 {
     text-align: left;
@@ -178,11 +187,19 @@ export default defineComponent({
   .carousel__slide--visible,
   .carousel__slide--active {
     transform: initial;
-    width: initial !important;
+    // width: inherit !important;
+    // max-width: 200px;
   }
   .carousel__track {
     width: initial;
     // gap: 10px !important;
+    gap: 10px;
+  }
+  .carousel__viewport {
+    width: 100%;
+    .carousel__track {
+      gap: 10px;
+    }
   }
   .custom-carousel {
     // width: 100%;

@@ -28,7 +28,7 @@ const routes = [
     component: CategoryView,
   },
   {
-    path: "/ingredient", // Nouvelle route pour les catégories
+    path: "/ingredient",
     name: "ingredient",
     component: IngredientView,
   },

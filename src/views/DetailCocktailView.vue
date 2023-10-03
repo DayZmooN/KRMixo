@@ -541,6 +541,7 @@ header {
     transform: initial;
     width: initial !important;
   }
+
   .carousel__slide {
     width: 99px !important;
   }

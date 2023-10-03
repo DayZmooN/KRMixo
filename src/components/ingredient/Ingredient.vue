@@ -1,51 +1,62 @@
 <template>
   <div class="ingredient-container">
     <h1>Liste des ingrédients</h1>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis enim sint
-      modi reprehenderit aut nulla sapiente voluptatem corrupti repellendus.
-      Possimus ea laboriosam ratione, repellendus aut nihil quisquam nostrum
-      temporibus magnam.
-    </p>
-    <!-- <ul>
-      <li v-for="ingredient in ingredients" :key="ingredient.idIngredient">
-        {{ ingredient.strIngredient }}
-      </li>
-    </ul> -->
+    <div class="ingredient-list" v-if="ingredients && ingredients.length">
+      <div
+        class="img-span"
+        v-for="ingredient in ingredients"
+        :key="ingredient.strIngredient1"
+        @click="$emit('ingredientSelected', ingredient.strIngredient1)"
+      >
+        <img
+          :src="`https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-small.png`"
+          :alt="`${ingredient.strIngredient1} image`"
+        />
+        <span>{{ ingredient.strIngredient1 }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "IngredientView",
+  name: "IngredientComponent",
   props: {
     ingredients: {
       type: Array,
       required: true,
     },
   },
+  data() {
+    return {};
+  },
+  mounted() {
+    console.log("Ingredients:", this.ingredients);
+  },
+  methods: {
+    handleImageError(ingredientName) {
+      this.$emit("handleImageError", ingredientName);
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ingredient-container {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
+  width: 100%;
 
-.ingredient-container h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
+  .ingredient-list {
+    overflow: scroll;
+    display: flex;
+    align-items: center;
+    .img-span {
+      width: 100px;
+      text-align: center;
 
-.ingredient-container ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.ingredient-container ul li {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+      img {
+        max-width: initial;
+      }
+    }
+  }
 }
 </style>

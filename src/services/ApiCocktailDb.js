@@ -20,6 +20,7 @@ function searchCocktail(word) {
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${word}`
   );
 }
+
 function getCategory() {
   return fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`);
 }
@@ -29,9 +30,18 @@ function getCocktailsByCategory(category) {
   );
 }
 function getIngredient() {
-  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`);
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list`);
 }
-
+function getCocktailsByIngredient(ingredient) {
+  return fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
+  );
+}
+function searchIngredient(ingredientWord) {
+  return fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredientWord}`
+  );
+}
 export {
   allCocktailNoAlcool,
   getOneCocktails,
@@ -40,4 +50,6 @@ export {
   getCategory,
   getCocktailsByCategory,
   getIngredient,
+  getCocktailsByIngredient,
+  searchIngredient,
 };
