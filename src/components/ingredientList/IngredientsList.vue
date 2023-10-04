@@ -25,16 +25,16 @@
       <Slide v-for="ingredient in ingredients" :key="ingredient.index">
         <div class="picture-ingredients">
           <img
-            v-if="!imageError[`strIngredient${ingredient.index}`]"
-            :src="getIngredientImageUrl(ingredient.name)"
-            alt=""
-            @error="handleImageError(`strIngredient${ingredient.index}`)"
+            v-if="ingredient.name"
+            :src="`https://www.thecocktaildb.com/images/ingredients/${ingredient.name}-small.png`"
+            :alt="`${ingredient.name} image`"
+            @error="handleImageError"
           />
 
-          <div v-else>
+          <!-- <div>
             <span>{{ ingredient.name }}</span>
             <span>{{ ingredient.measure }}</span>
-          </div>
+          </div> -->
         </div>
 
         <div class="qty-name">
@@ -57,8 +57,11 @@ export default {
   name: "ingredientComponent",
   props: {
     ingredients: Array,
+    settings: Object,
+    breakpoints: Object,
     imageError: Object,
   },
+
   components: {
     Carousel,
     Slide,
@@ -70,9 +73,7 @@ export default {
   //     imageError: {},
   //   };
   // },
-  mounted() {
-    console.log("Ingredients reçus:", this.ingredients); // Pour le débogage
-  },
+  mounted() {},
   // computed: {
   //   filteredIngredients() {
   //     const ingredients = [];
@@ -92,17 +93,13 @@ export default {
   //   },
   // },
   methods: {
-    getIngredientImageUrl(ingredientName) {
-      if (!ingredientName) return "";
-      const formattedName = ingredientName.toLowerCase().replace(/ /g, "_");
-      return `https://www.thecocktaildb.com/images/ingredients/${formattedName}-Medium.png`;
-    },
-    handleImageError(ingredientIndex) {
-      this.$emit("handleImageError", ingredientIndex);
+    handleImageError(event) {
+      event.target.src = "path/to/default/image.png"; // Image par défaut
     },
   },
 };
 </script>
+
 <style scoped lang="scss">
 .containter-ingrediant {
   // width: 100%;
@@ -180,14 +177,15 @@ export default {
     display: flex;
     flex-direction: column;
     width: 145px;
-    // height: 120px;
+    height: 170px;
     background: #fef9e4;
+    margin-left: 10px;
     border-radius: 999px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 5px;
+    // padding: 5px;
     border: 1px solid #fbe897;
     .picture-ingredients {
       width: 99px;

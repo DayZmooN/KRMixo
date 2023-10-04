@@ -69,6 +69,10 @@ export default {
   mounted() {
     this.getCategory();
     this.getCocktailsByCategory("Ordinary Drink");
+    const categoryName = this.$route.params.categoryName;
+    if (categoryName) {
+      this.getCocktailsByCategory(categoryName);
+    }
   },
   methods: {
     async getCategory() {
@@ -91,6 +95,7 @@ export default {
       }
     },
     async getCocktailsByCategory(category) {
+      console.log("Catégorie sélectionnée:", category); // Ajout d'un log pour le débogage
       try {
         const response = await getCocktailsByCategory(category);
         if (response.ok) {
@@ -133,6 +138,21 @@ export default {
       } catch (error) {
         console.error("Erreur lors de la recherche des cocktails:", error);
       }
+    },
+    watch: {
+      "$route.params.categoryName": {
+        immediate: true,
+        handler(newVal) {
+          this.getCocktailsByCategory(newVal);
+        },
+      },
+    },
+    beforeRouteUpdate(to, from, next) {
+      const newCategory = to.params.categoryName;
+      if (newCategory) {
+        this.getCocktailsByCategory(newCategory);
+      }
+      next();
     },
   },
 };

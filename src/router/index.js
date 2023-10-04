@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import Detail from "../views/DetailCocktailView.vue";
 import CategoryView from "../views/CategoryView.vue";
 import IngredientView from "../views/IngredientView.vue";
+// import ComponentDescription from "../components/cocktailDescription/CocktailDescription.vue";
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path: "/ingredient",
     name: "ingredient",
     component: IngredientView,
+  },
+  {
+    path: "/category/:categoryName",
+    name: "CategoryName",
+    component: CategoryView,
   },
 ];
 

@@ -5,8 +5,8 @@
     <CocktailDescription v-if="oneCocktail" :cocktail="oneCocktail" />
     <Ingredient
       :ingredients="filteredIngredients"
-      :imageError="imageError"
-      @handleImageError="handleImageError"
+      :settings="settings"
+      :breakpoints="breakpoints"
     />
 
     <!-- <nav class="nav">
@@ -189,13 +189,11 @@ export default {
     },
     ingredients: {
       type: Array,
-      required: true,
     },
   },
   data() {
     return {
       oneCocktail: {},
-      imageError: {},
       // cocktail: {},
       cocktails: [],
       settings: {
@@ -214,7 +212,6 @@ export default {
       },
     };
   },
-
   computed: {
     filteredIngredients() {
       const ingredients = [];
@@ -231,6 +228,12 @@ export default {
       }
       console.log("Filtered Ingredients:", ingredients); // Pour le débogage
       return ingredients;
+    },
+    visibleCocktails() {
+      return this.cocktails.slice(
+        this.currentSlide,
+        this.currentSlide + this.slidesToShow
+      );
     },
   },
   watch: {
@@ -265,14 +268,12 @@ export default {
         console.error("Erreur lors de l'appel API:", error);
       }
     },
-    getIngredientImageUrl(ingredientName) {
-      if (!ingredientName) return "";
-      const formattedName = ingredientName.toLowerCase().replace(/ /g, "_");
-      return `https://www.thecocktaildb.com/images/ingredients/${formattedName}-Medium.png`;
-    },
-    // handleImageError(ingredientIndex) {
-    //   this.imageError = { ...this.imageError, [ingredientIndex]: true };
+    // getIngredientImageUrl(ingredientName) {
+    //   if (!ingredientName) return "";
+    //   const formattedName = ingredientName.toLowerCase().replace(/ /g, "_");
+    //   return `https://www.thecocktaildb.com/images/ingredients/${formattedName}-Medium.png`;
     // },
+
     async allCocktailNoAlcool() {
       try {
         const response = await allCocktailNoAlcool();
@@ -300,9 +301,6 @@ export default {
       if (this.currentSlide > 0) {
         this.currentSlide--;
       }
-    },
-    handleImageError(ingredientIndex) {
-      this.imageError = { ...this.imageError, [ingredientIndex]: true };
     },
   },
 };
@@ -535,6 +533,7 @@ header {
   //     }
   //   }
   // }
+
   .carousel__slide,
   .carousel__slide--visible,
   .carousel__slide--active {

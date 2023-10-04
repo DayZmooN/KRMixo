@@ -15,7 +15,7 @@
         ></p>
       </div>
 
-      <div class="category">
+      <div class="CategoryName" @click="goToCategory">
         <span v-if="cocktail">{{ cocktail.strCategory }}</span>
       </div>
     </div>
@@ -42,6 +42,16 @@ export default {
         return this.cocktail.strInstructions.replace(/\./g, ".\n");
       }
       return "";
+    },
+  },
+  methods: {
+    goToCategory() {
+      if (this.cocktail && this.cocktail.strCategory) {
+        this.$router.push({
+          name: "CategoryName",
+          params: { categoryName: this.cocktail.strCategory },
+        });
+      }
     },
   },
 };
@@ -99,10 +109,28 @@ export default {
         }
       }
     }
-    .category {
+
+    .CategoryName {
       margin: 20px auto;
+
       span {
         font-size: 1.2rem;
+        color: #0b2430;
+        cursor: pointer;
+        position: relative;
+        &:hover::after {
+          color: #fb7d8a;
+          content: "category";
+          display: block;
+          position: absolute;
+          top: 100%;
+          font-size: 0.9em;
+          left: 0;
+          // background-color: #f1f1f1;
+          padding: 10px;
+          // border: 1px solid #ccc;
+          border-radius: 5px;
+        }
       }
     }
   }

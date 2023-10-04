@@ -10,7 +10,7 @@
           type="text"
           v-model="query"
           @input="search"
-          placeholder="Recherche ton cocktail..."
+          placeholder="search"
         />
 
         <button type="submit" class="searchButton">

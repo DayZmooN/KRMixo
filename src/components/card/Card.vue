@@ -80,7 +80,7 @@ export default {
   @media screen and (min-width: 1024px) {
     width: 190px;
     &:hover {
-      width: 300px;
+      width: 200px;
     }
   }
 

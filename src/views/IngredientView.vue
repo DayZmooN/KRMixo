@@ -36,6 +36,7 @@ import Footer from "@/components/footer/Footer.vue";
 import IngredientAll from "@/components/ingredient/Ingredient.vue";
 import Search from "@/components/search/SearchView.vue";
 import Card from "@/components/card/Card.vue";
+
 import {
   getIngredient,
   getCocktailsByIngredient,
@@ -156,6 +157,7 @@ export default {
 .ingredient {
   width: 100%;
   display: flex;
+  overflow: scroll;
 }
 .card-ingredient {
   display: flex;
