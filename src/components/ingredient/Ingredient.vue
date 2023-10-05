@@ -48,30 +48,38 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .slider-wrapper {
-//   width: 100%;
-//   position: relative;
+.slider-wrapper {
+  width: 100%;
+  position: relative;
+  gap: 20px;
 
-//   .ingredient-list {
-//     display: flex;
-//     overflow-x: hidden;
-//     scroll-behavior: smooth;
-//   }
+  .ingredient-list {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
 
-//   .img-span {
-//     width: 100px;
-//     text-align: center;
+  .img-span {
+    width: 100px;
+    text-align: center;
 
-//     img {
-//       max-width: initial;
-//     }
-//   }
-// }
+    img {
+      max-width: initial;
+    }
+  }
+}
+.swiper-slide .swiper-slide-active {
+  gap: 20px;
+}
+.swiper-slide {
+  margin: auto 20px !important;
+}
 .slide-ingredient {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 10px;
   text-align: center;
+  width: 100px;
 }
 </style>
