@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Detail from "../views/DetailCocktailView.vue";
-import CategoryView from "../views/CategoryView.vue";
+import CatalogueView from "../views/CatalogueView.vue";
 import IngredientView from "../views/IngredientView.vue";
 // import ComponentDescription from "../components/cocktailDescription/CocktailDescription.vue";
 
@@ -24,9 +24,9 @@ const routes = [
     props: true, // This will automatically convert params to props
   },
   {
-    path: "/category", // Nouvelle route pour les catégories
+    path: "/catalogue", // Nouvelle route pour les catégories
     name: "category",
-    component: CategoryView,
+    component: CatalogueView,
   },
   {
     path: "/ingredient",
@@ -34,9 +34,9 @@ const routes = [
     component: IngredientView,
   },
   {
-    path: "/category/:categoryName",
+    path: "/catalogue/:categoryName",
     name: "CategoryName",
-    component: CategoryView,
+    component: CatalogueView,
   },
 ];
 

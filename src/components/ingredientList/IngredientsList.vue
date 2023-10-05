@@ -83,6 +83,11 @@ export default {
   background: #fff;
   margin: auto;
   padding: 20px;
+
+  @media screen and (min-width: 1220px) {
+    max-width: 1200px;
+  }
+  max-width: 1200px;
   .arrow_ingredients {
     width: 100%;
     display: flex;

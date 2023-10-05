@@ -59,7 +59,6 @@ export default {
 <style scoped lang="scss">
 .description-picture {
   background-color: #fef9e4;
-  // height: 100px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -81,6 +80,12 @@ export default {
     width: 260px;
     right: 10px;
     margin: 20px auto;
+    @media screen and (min-width: 800px) {
+      width: 360px;
+    }
+    @media screen and (min-width: 1200px) {
+      width: 360px;
+    }
 
     img {
       width: 100%;

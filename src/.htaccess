@@ -6,9 +6,8 @@ RewriteRule . index.php [L]
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresDefault "access plus 1 month"
-    ExpiresByType text/html "access plus 1 month"
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
@@ -19,9 +18,13 @@ RewriteRule . index.php [L]
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/x-javascript
 </IfModule>
 
-
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/plain text/xml text/css text/javascript application/javascript
+</IfModule>
 
 <IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
     <FilesMatch "\.(css|js|jpg|jpeg|png|gif|svg)$">
         Header always set Cache-Control "public, max-age=31536000"
         Header always set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src

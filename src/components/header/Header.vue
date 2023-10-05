@@ -31,7 +31,7 @@
       }"
     >
       <router-link :to="{ name: 'category' }">
-        <span>categorys</span>
+        <span>Catalogue</span>
       </router-link>
       <router-link :to="{ name: 'ingredient' }">
         <span>ingredients</span>
@@ -174,6 +174,7 @@ header {
     left: 0;
     width: 100%;
     gap: 1rem;
+    padding: 10px;
     height: auto;
     background: linear-gradient(
       180deg,

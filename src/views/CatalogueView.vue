@@ -35,6 +35,7 @@ import {
   getCategory,
   getCocktailsByCategory,
   getSeachCategory,
+  searchCocktail,
 } from "@/services/ApiCocktailDb.js";
 import Card from "@/components/card/Card.vue";
 
@@ -119,26 +120,47 @@ export default {
     },
     async performSearch(searchCategory) {
       try {
-        const response = await getSeachCategory(searchCategory);
-        if (response && response.ok) {
-          const text = await response.text();
-          if (!text) {
-            console.warn("Réponse vide de l'API");
-            this.selectedCocktails = [];
-            return;
-          }
-          const data = JSON.parse(text);
-          this.selectedCocktails = data.drinks || [];
-        } else {
-          console.error(
-            "Erreur lors de la recherche des cocktails:",
-            response.status
-          );
-        }
+        // Créez un tableau de promesses pour les différentes requêtes
+        const searchPromises = [
+          getSeachCategory(searchCategory),
+          searchCocktail(searchCategory),
+        ];
+
+        // Exécutez les requêtes en parallèle
+        const responses = await Promise.all(searchPromises);
+
+        // Rassemblez les résultats de toutes les requêtes dans un tableau unique
+        const results = await Promise.all(
+          responses.map(async (response) => {
+            if (response.ok) {
+              const text = await response.text();
+              if (!text) {
+                return [];
+              }
+              const data = JSON.parse(text);
+              return data.drinks || [];
+            } else {
+              console.error(
+                "Erreur lors de la recherche des cocktails:",
+                response.status
+              );
+              return [];
+            }
+          })
+        );
+
+        // Concaténez tous les résultats en un seul tableau
+        const allCocktails = results.reduce(
+          (acc, curr) => acc.concat(curr),
+          []
+        );
+
+        this.selectedCocktails = allCocktails;
       } catch (error) {
         console.error("Erreur lors de la recherche des cocktails:", error);
       }
     },
+
     watch: {
       "$route.params.categoryName": {
         immediate: true,
