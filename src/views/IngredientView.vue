@@ -2,7 +2,7 @@
   <div>
     <Header />
     <Search @search="performSearch" />
-    <div class="ingredient">
+    <div class="ingredient" id="scroll-container" style="overflow: auto">
       <IngredientAll
         :ingredients="ingredients"
         @ingredientSelected="getCocktailsByIngredient"
@@ -17,15 +17,11 @@
         :idDrink="cocktail.idDrink"
       />
     </div>
-    <div class="pagination">
-      <button @click="currentPage--" :disabled="currentPage <= 1">
-        Précédent
-      </button>
-      <span>Page {{ currentPage }} sur {{ maxPage }}</span>
-      <button @click="currentPage++" :disabled="currentPage >= maxPage">
-        Suivant
-      </button>
-    </div>
+    <PaginationComponent
+      :currentPage="currentPage"
+      :maxPage="maxPage"
+      @updatePage="updatePage"
+    />
     <Footer />
   </div>
 </template>
@@ -36,6 +32,7 @@ import Footer from "@/components/footer/Footer.vue";
 import IngredientAll from "@/components/ingredient/Ingredient.vue";
 import Search from "@/components/search/SearchView.vue";
 import Card from "@/components/card/Card.vue";
+import PaginationComponent from "@/components/pagination/PaginationComponent.vue";
 
 import {
   getIngredient,
@@ -50,6 +47,7 @@ export default {
     Search,
     IngredientAll,
     Card,
+    PaginationComponent,
     Footer,
   },
   data() {
@@ -58,20 +56,6 @@ export default {
       selectedCocktails: [],
       currentPage: 1,
       itemsPerPage: 10,
-      settings: {
-        itemsToShow: 1,
-        snapAlign: "center",
-      },
-      breakpoints: {
-        700: {
-          itemsToShow: 3.5,
-          snapAlign: "center",
-        },
-        1024: {
-          itemsToShow: 5,
-          snapAlign: "start",
-        },
-      },
     };
   },
   computed: {
@@ -87,6 +71,7 @@ export default {
   mounted() {
     this.getIngredient();
     this.getCocktailsByIngredient("Tea");
+    // this.setupRightClickScroll();
   },
   methods: {
     async getIngredient() {
@@ -149,6 +134,24 @@ export default {
         console.error("Erreur lors de la recherche des cocktails:", error);
       }
     },
+    updatePage(page) {
+      this.currentPage = page;
+    },
+    watch: {
+      "$route.params.categoryName": {
+        immediate: true,
+        handler(newVal) {
+          this.getCocktailsByCategory(newVal);
+        },
+      },
+    },
+    beforeRouteUpdate(to, from, next) {
+      const newCategory = to.params.categoryName;
+      if (newCategory) {
+        this.getCocktailsByCategory(newCategory);
+      }
+      next();
+    },
   },
 };
 </script>
@@ -156,8 +159,27 @@ export default {
 <style scoped lang="scss">
 .ingredient {
   width: 100%;
-  display: flex;
   overflow: scroll;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: orange;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+#scroll-container {
+  cursor: grab;
+}
+#scroll-container:active {
+  cursor: grabbing;
 }
 .card-ingredient {
   display: flex;
