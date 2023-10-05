@@ -318,8 +318,13 @@ header {
 .details-cocktail {
   width: 100%;
   background: #fef9e4;
+  border-radius: 18px;
   @media screen and (min-width: 780px) {
     width: auto;
+  }
+  @media screen and (min-width: 1440px) {
+    max-width: 1200px;
+    margin: auto;
   }
   // max-width: 1400px;
 
@@ -336,6 +341,7 @@ header {
   .wave {
     bottom: 0;
     background: #fcfcfc;
+    border-radius: 18px;
   }
 
   .wave-path {
@@ -362,177 +368,6 @@ header {
       );
     }
   }
-
-  // nav {
-  //   height: 40px;
-  //   background: #fef9e4;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: space-between;
-  //   margin: auto;
-  //   padding: 20px;
-
-  //   @media screen and (min-width: 1300px) {
-  //     width: 100%;
-  //     max-width: 1200px;
-  //   }
-  //   @media screen and (min-width: 1400px) {
-  //     max-width: 1200px;
-  //   }
-
-  //   h1 {
-  //     font-size: 1.2rem;
-  //     animation: neon6 2.5s ease-in-out infinite alternate;
-  //     line-height: 1;
-  //     text-decoration: none;
-  //     color: #fb7d8a;
-
-  //     @media screen and (min-width: 780px) {
-  //       font-size: 1.5rem;
-  //     }
-  //   }
-  // }
-
-  // @keyframes neon6 {
-  //   from {
-  //     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fb7d8a,
-  //       0 0 70px #fb7d8a, 0 0 80px #fb7d8a, 0 0 100px #fb7d8a, 0 0 150px #fb7d8a;
-  //   }
-
-  //   to {
-  //     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fb7d8a,
-  //       0 0 35px #fb7d8a, 0 0 40px #fb7d8a, 0 0 50px #fb7d8a, 0 0 75px #fb7d8a;
-  //   }
-  // }
-
-  // .description-picture {
-  //   background-color: #fef9e4;
-  //   // height: 100px;
-  //   width: 100%;
-  //   display: flex;
-  //   justify-content: space-between;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   padding: 10px;
-  //   margin: auto;
-
-  //   @media screen and (min-width: 600px) {
-  //     flex-direction: row;
-  //   }
-
-  //   @media screen and (min-width: 800px) {
-  //     flex-direction: row-reverse;
-  //     max-width: 1000px;
-  //   }
-
-  //   .picture {
-  //     width: 260px;
-  //     right: 10px;
-  //     margin: 20px auto;
-
-  //     img {
-  //       width: 100%;
-  //       border-radius: 999px;
-  //     }
-  //   }
-
-  //   .paragraphe-cocktail {
-  //     max-width: 300px;
-  //     @media screen and (min-width: 800px) {
-  //       flex-direction: row-reverse;
-  //       max-width: 500px;
-  //       margin: 10px auto;
-  //     }
-  //     .paragraphe-category {
-  //       width: 100%;
-  //       text-align: justify;
-  //       padding: 5px;
-  //       p {
-  //         font-size: 0.95rem;
-  //         font-weight: 500;
-  //         font: 400;
-  //         color: #fb7d8a;
-  //         line-height: 1.17rem;
-  //         @media screen and (min-width: 800px) {
-  //           font-size: 1.2rem;
-  //         }
-  //       }
-  //     }
-  //     .category {
-  //       margin: 20px auto;
-  //       span {
-  //         font-size: 1.2rem;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // .arrow_ingredients {
-  //   width: 100%;
-  //   display: flex;
-  //   //   margin: 30px auto;
-  //   gap: 10px;
-  // }
-
-  // .containter-ingrediant {
-  //   width: 100%;
-  //   height: auto;
-  //   background: #fff;
-  //   // max-width: 1000px;
-  //   margin: auto;
-  //   padding: 20px;
-  //   // margin-bottom: 70px;
-  //   // padding: 20px;
-  //   // overflow: scroll;
-  //   // margin: 10px auto;
-
-  //   .container-bubble {
-  //     display: flex;
-  //     gap: 10px;
-  //     overflow: scroll;
-  //     padding: 20px;
-  //     width: 100%;
-  //     height: 100%;
-  //     margin-bottom: 78px;
-
-  //     .bubble-ingrediant {
-  //       width: 145px;
-  //       // height: 120px;
-  //       background: #fef9e4;
-  //       border-radius: 999px;
-  //       display: flex;
-  //       justify-content: center;
-  //       align-items: center;
-  //       flex-direction: column;
-  //       border: 1px solid #fbe897;
-
-  //       // padding: 10px;
-  //       .picture-ingredients {
-  //         width: 99px;
-  //         height: 90px;
-  //         display: flex;
-  //         align-items: center;
-
-  //         img {
-  //           width: 100%;
-  //           height: 100%;
-  //         }
-  //       }
-
-  //       .qty-name {
-  //         width: 100%;
-  //         padding: 10px;
-  //         text-align: center;
-  //         display: block;
-
-  //         span {
-  //           display: block;
-  //           font-size: 0.8rem;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   .carousel__slide,
   .carousel__slide--visible,

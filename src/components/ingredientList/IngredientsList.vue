@@ -68,33 +68,10 @@ export default {
     Navigation,
   },
 
-  // data() {
-  //   return {
-  //     imageError: {},
-  //   };
-  // },
   mounted() {},
-  // computed: {
-  //   filteredIngredients() {
-  //     const ingredients = [];
-  //     for (let i = 1; i <= 15; i++) {
-  //       const ingredientName = this.oneCocktail[`strIngredient${i}`];
-  //       const ingredientMeasure = this.oneCocktail[`strMeasure${i}`];
-  //       if (ingredientName) {
-  //         ingredients.push({
-  //           name: ingredientName,
-  //           measure: ingredientMeasure,
-  //           index: i,
-  //         });
-  //       }
-  //     }
-  //     console.log("Filtered Ingredients:", ingredients); // Pour le débogage
-  //     return ingredients;
-  //   },
-  // },
   methods: {
     handleImageError(event) {
-      event.target.src = "path/to/default/image.png"; // Image par défaut
+      event.target.src = "path/to/default/image.png";
     },
   },
 };
@@ -102,71 +79,19 @@ export default {
 
 <style scoped lang="scss">
 .containter-ingrediant {
-  // width: 100%;
   height: auto;
   background: #fff;
   margin: auto;
   padding: 20px;
-  // overflow: scroll;
   .arrow_ingredients {
     width: 100%;
     display: flex;
-    //   margin: 30px auto;
     gap: 10px;
   }
-  // .container-bubble {
-  //   display: flex;
-  //   gap: 10px;
-  //   // overflow: scroll;
-  //   padding: 20px;
-  //   width: 100%;
-  //   height: 100%;
-  //   margin-bottom: 78px;
 
-  //   .bubble-ingrediant {
-  //     width: 145px;
-  //     // height: 120px;
-  //     background: #fef9e4;
-  //     border-radius: 999px;
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
-  //     flex-direction: column;
-  //     border: 1px solid #fbe897;
-
-  //     // padding: 10px;
-  //     .picture-ingredients {
-  //       width: 99px;
-  //       height: 90px;
-  //       display: flex;
-  //       align-items: center;
-
-  //       img {
-  //         width: 100% !important;
-  //         height: 100%;
-  //       }
-  //     }
-
-  //     .qty-name {
-  //       width: 100%;
-  //       padding: 10px;
-  //       text-align: center;
-  //       display: block;
-
-  //       span {
-  //         display: block;
-  //         font-size: 0.8rem;
-  //       }
-  //     }
-  //   }
-  // }
   .carousel_slide {
     width: 99px;
     height: 99px;
-  }
-  .carousel__track {
-    width: initial !important;
-    gap: 17px;
   }
   .carousel__slide,
   .carousel__slide--visible,
@@ -185,7 +110,6 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    // padding: 5px;
     border: 1px solid #fbe897;
     .picture-ingredients {
       width: 99px;
@@ -211,10 +135,6 @@ export default {
         font-size: 0.8rem;
       }
     }
-  }
-  .carousel__track {
-    width: initial !important;
-    gap: 17px !important;
   }
 }
 </style>
