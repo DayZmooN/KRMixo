@@ -82,7 +82,6 @@ export default {
   height: auto;
   background: #fff;
   margin: auto;
-  padding: 20px;
 
   @media screen and (min-width: 1220px) {
     max-width: 1200px;
@@ -95,8 +94,17 @@ export default {
   }
 
   .carousel_slide {
-    width: 99px;
+    // width: 99px;
     height: 99px;
+  }
+  .carousel_track {
+    transform: initial;
+  }
+  .carousel {
+    width: 100%;
+    display: flex;
+    margin: auto;
+    justify-content: center;
   }
   .carousel__slide,
   .carousel__slide--visible,
@@ -106,7 +114,7 @@ export default {
     margin: auto;
     display: flex;
     flex-direction: column;
-    width: 145px;
+    // width: 145px;
     height: 170px;
     background: #fef9e4;
     margin-left: 10px;

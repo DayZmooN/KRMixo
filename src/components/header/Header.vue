@@ -33,6 +33,9 @@
       <router-link :to="{ name: 'category' }">
         <span>Catalogue</span>
       </router-link>
+      <router-link :to="{ name: 'noAlcohol' }">
+        <span>sans alcohol</span>
+      </router-link>
       <router-link :to="{ name: 'ingredient' }">
         <span>ingredients</span>
       </router-link>
@@ -178,8 +181,8 @@ header {
     height: auto;
     background: linear-gradient(
       180deg,
-      rgba(251, 125, 138, 0.45) 0%,
-      rgba(255, 206, 49, 0.45) 100%
+      rgba(251, 125, 138, 0.85) 0%,
+      rgba(255, 206, 49, 0.85) 100%
     );
 
     // color: white;

@@ -14,7 +14,6 @@
             :idDrink="cocktail.idDrink"
           />
         </Slide>
-
         <template #addons>
           <Navigation />
         </template>
@@ -144,7 +143,6 @@ export default defineComponent({
         console.error("Une erreur s'est produite :", erreur);
       }
     },
-
     async performSearch(query) {
       const response = await searchCocktail(query);
       const data = await response.json();
@@ -193,7 +191,7 @@ export default defineComponent({
   .carousel__track {
     width: initial;
     // gap: 10px !important;
-    gap: 10px;
+    gap: 50px !important;
   }
   .carousel__viewport {
     width: 100%;

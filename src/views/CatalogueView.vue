@@ -16,7 +16,6 @@
       />
     </div>
   </div>
-
   <PaginationComponent
     :currentPage="currentPage"
     :maxPage="maxPage"
@@ -54,7 +53,7 @@ export default {
       categories: [],
       selectedCocktails: [],
       currentPage: 1,
-      itemsPerPage: 12,
+      itemsPerPage: 10,
     };
   },
   computed: {
@@ -183,6 +182,11 @@ export default {
 <style scoped lang="scss">
 .category {
   width: 100%;
+  margin: auto;
+
+  @media screen and (min-width: 1220px) {
+    max-width: 1220px;
+  }
 
   .category_container {
     background: blue;

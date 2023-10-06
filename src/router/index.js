@@ -4,6 +4,7 @@ import Detail from "../views/DetailCocktailView.vue";
 import CatalogueView from "../views/CatalogueView.vue";
 import IngredientView from "../views/IngredientView.vue";
 // import ComponentDescription from "../components/cocktailDescription/CocktailDescription.vue";
+import sansAlcoholView from "../views/sansAlcoholView.vue";
 
 const routes = [
   {
@@ -24,9 +25,14 @@ const routes = [
     props: true, // This will automatically convert params to props
   },
   {
-    path: "/catalogue", // Nouvelle route pour les catégories
+    path: "/catalogue",
     name: "category",
     component: CatalogueView,
+  },
+  {
+    path: "/noAlcohol",
+    name: "noAlcohol",
+    component: sansAlcoholView,
   },
   {
     path: "/ingredient",

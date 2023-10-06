@@ -215,6 +215,9 @@ header {
     width: initial !important;
   }
 
+  .carousel__track {
+    gap: 10px !important;
+  }
   .carousel__slide {
     width: 99px !important;
   }
