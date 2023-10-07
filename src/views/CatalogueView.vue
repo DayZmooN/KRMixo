@@ -54,6 +54,7 @@ export default {
       selectedCocktails: [],
       currentPage: 1,
       itemsPerPage: 10,
+      cache: {},
     };
   },
   computed: {
@@ -76,42 +77,53 @@ export default {
   },
   methods: {
     async getCategory() {
-      try {
-        const response = await getCategory();
-        if (response.ok) {
-          const data = await response.json();
-          this.categories = data.drinks;
-        } else {
+      if (this.cache.categories) {
+        this.categories = this.cache.categories;
+      } else {
+        try {
+          const response = await getCategory();
+          if (response.ok) {
+            const data = await response.json();
+            this.categories = data.drinks;
+            this.cache.categories = this.categories;
+          } else {
+            console.error(
+              "Erreur lors de la récupération des catégories:",
+              response.status
+            );
+          }
+        } catch (error) {
           console.error(
-            "Erreur lors de la récupération des catégories:",
-            response.status
+            "Une erreur s'est produite lors de la récupération des catégories:",
+            error
           );
         }
-      } catch (error) {
-        console.error(
-          "Une erreur s'est produite lors de la récupération des catégories:",
-          error
-        );
       }
     },
+
     async getCocktailsByCategory(category) {
       console.log("Catégorie sélectionnée:", category); // Ajout d'un log pour le débogage
-      try {
-        const response = await getCocktailsByCategory(category);
-        if (response.ok) {
-          const data = await response.json();
-          this.selectedCocktails = data.drinks;
-        } else {
+      if (this.cache[`cocktails_${category}`]) {
+        this.selectedCocktails = this.cache[`cocktails_${category}`];
+      } else {
+        try {
+          const response = await getCocktailsByCategory(category);
+          if (response.ok) {
+            const data = await response.json();
+            this.selectedCocktails = data.drinks;
+            this.cache[`cocktails_${category}`] = this.selectedCocktails;
+          } else {
+            console.error(
+              "Erreur lors de la récupération des cocktails:",
+              response.status
+            );
+          }
+        } catch (error) {
           console.error(
-            "Erreur lors de la récupération des cocktails:",
-            response.status
+            "Une erreur s'est produite lors de la récupération des cocktails:",
+            error
           );
         }
-      } catch (error) {
-        console.error(
-          "Une erreur s'est produite lors de la récupération des cocktails:",
-          error
-        );
       }
     },
     updatePage(page) {

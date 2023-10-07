@@ -45,6 +45,7 @@ export default {
       currentPage: 1,
       itemsPerPage: 15, // Nombre d'éléments par page
       maxPage: 0, // Calculé en fonction du nombre total de cocktails
+      cache: {},
     };
   },
   mounted() {

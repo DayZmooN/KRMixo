@@ -80,6 +80,7 @@ export default defineComponent({
       randomCocktails: [],
       showCategories: false,
       categories: [],
+      cache: {},
       settings: {
         itemsToShow: 1,
         snapAlign: "center",
@@ -110,45 +111,42 @@ export default defineComponent({
   },
   methods: {
     async allCocktailNoAlcool() {
-      try {
-        const response = await allCocktailNoAlcool();
-        const data = await response.json();
-        if (data.drinks && data.drinks.length > 0) {
-          this.cocktails = data.drinks.slice(0, 10);
-        } else {
-          console.log("Aucun cocktail trouvé.");
-        }
-      } catch (erreur) {
-        console.error("Une erreur s'est produite :", erreur);
-      }
-    },
-    // async getRandomNoAlcool() {
-    //   try {
-    //     const response = await getRandomNoAlcool();
-    //     const data = await response.json();
-    //     if (data.drinks && data.drinks.length > 0) {
-    //       this.randomCocktails = data.drinks.slice(0, 20);
-    //     } else {
-    //       console.log("Aucun cocktail aléatoire sans alcool trouvé.");
-    //     }
-    //   } catch (erreur) {
-    //     console.error("Une erreur s'est produite :", erreur);
-    //   }
-    // },
-    async getRandomNoAlcool() {
-      try {
-        this.randomCocktails = [];
-        for (let i = 0; i < 15; i++) {
-          const response = await getRandomNoAlcool();
+      if (this.cache.allCocktailNoAlcool) {
+        this.cocktails = this.cache.allCocktailNoAlcool;
+      } else {
+        try {
+          const response = await allCocktailNoAlcool();
           const data = await response.json();
           if (data.drinks && data.drinks.length > 0) {
-            this.randomCocktails.push(...data.drinks);
+            this.cocktails = data.drinks.slice(0, 10);
+            this.cache.allCocktailNoAlcool = this.cocktails;
           } else {
-            console.log("Aucun cocktail aléatoire sans alcool trouvé.");
+            console.log("Aucun cocktail trouvé.");
           }
+        } catch (erreur) {
+          console.error("Une erreur s'est produite :", erreur);
         }
-      } catch (erreur) {
-        console.error("Une erreur s'est produite :", erreur);
+      }
+    },
+    async getRandomNoAlcool() {
+      if (this.cache.getRandomNoAlcool) {
+        this.randomCocktails = this.cache.getRandomNoAlcool;
+      } else {
+        try {
+          this.randomCocktails = [];
+          for (let i = 0; i < 15; i++) {
+            const response = await getRandomNoAlcool();
+            const data = await response.json();
+            if (data.drinks && data.drinks.length > 0) {
+              this.randomCocktails.push(...data.drinks);
+            } else {
+              console.log("Aucun cocktail aléatoire sans alcool trouvé.");
+            }
+          }
+          this.cache.getRandomNoAlcool = this.randomCocktails;
+        } catch (erreur) {
+          console.error("Une erreur s'est produite :", erreur);
+        }
       }
     },
     async performSearch(query) {
