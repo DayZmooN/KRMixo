@@ -8,6 +8,7 @@ const path = require("path");
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  publicPath: "/KRmixo/",
   chainWebpack: (config) => {
     // Créez un alias pour le dossier d'images
     config.resolve.alias.set(

@@ -6,7 +6,11 @@
       <h3>Mélanges récents</h3>
 
       <!-- Utilisation du carrousel -->
-      <Carousel v-bind="settings" :breakpoints="breakpoints">
+      <Carousel
+        v-bind="settings"
+        :breakpoints="breakpoints"
+        class="custom-carousel"
+      >
         <Slide v-for="cocktail in cocktails" :key="cocktail.idDrink">
           <Card
             :title="cocktail.strDrink"
@@ -20,7 +24,11 @@
       </Carousel>
 
       <h1>Boissons aléatoires</h1>
-      <Carousel v-bind="settings" :breakpoints="breakpoints">
+      <Carousel
+        v-bind="settings"
+        :breakpoints="breakpoints"
+        class="custom-carousel"
+      >
         <Slide
           v-for="randomCocktail in randomCocktails"
           :key="randomCocktail.idDrink"
@@ -47,7 +55,7 @@ import SearchBar from "@/components/search/SearchView.vue";
 
 import Card from "@/components/card/Card.vue";
 import { Carousel, Navigation, Slide } from "vue3-carousel";
-import "vue3-carousel/dist/carousel.css";
+// import "vue3-carousel/dist/carousel.css";
 import {
   allCocktailNoAlcool,
   getRandomNoAlcool,
@@ -82,7 +90,7 @@ export default defineComponent({
           snapAlign: "center",
         },
         1024: {
-          itemsToShow: 5,
+          itemsToShow: 4,
           snapAlign: "start",
         },
       },
@@ -165,90 +173,62 @@ export default defineComponent({
 <style scoped lang="scss">
 .home_card {
   width: 100%;
-  max-width: 80%;
+  max-width: 85%;
   margin: auto;
-  @media screen and (min-width: 768px) {
-    max-width: 760px;
-  }
-  @media screen and (min-width: 1028px) {
-    max-width: 1024px;
-  }
-  @media screen and (min-width: 1440px) {
-    max-width: 1440px;
-  }
+
+  // margin: auto;
+  // @media screen and (min-width: 768px) {
+  //   max-width: 760px;
+  // }
+  // @media screen and (min-width: 1028px) {
+  //   max-width: 1114px;
+  // }
+  // @media screen and (min-width: 1440px) {
+  //   max-width: 1440px;
+  // }
 
   h3 {
     text-align: left;
     margin: 20px auto;
   }
-  .carousel__slide,
-  .carousel__slide--visible,
-  .carousel__slide--active {
-    transform: initial;
-    // width: inherit !important;
-    // max-width: 200px;
-  }
+  // .carousel__slide,
+  // .carousel__slide--visible,
+  // .carousel__slide--active {
+  //   transform: auto;
+  //   // width: inherit !important;
+  //   // max-width: 200px;
+  // }
   .carousel__track {
-    width: initial;
+    width: 100%;
+    transform: inherit !important;
     // gap: 10px !important;
-    gap: 50px !important;
+  }
+  a {
+    width: auto;
+    margin: 0;
+    padding: 0;
   }
   .carousel__viewport {
-    width: 100%;
-    .carousel__track {
-      gap: 10px;
-    }
+    overflow: auto;
+    max-width: 89%;
   }
+  // .carousel__viewport {
+  //   width: 100%;
+  //   overflow: auto !important;
+  // }
   .custom-carousel {
-    // width: 100%;
+    width: 100%;
     display: flex;
     // height: 300px;
     align-items: center;
-    margin: 10px auto;
-    padding: 20px;
+    // margin: 10px auto;
+    // padding: 20px;
+    transform: initial;
+    gap: 60px;
   }
+
   h1 {
     margin: 20px auto;
   }
-  .carousel {
-    margin-bottom: 80px;
-  }
-  .randomCocktail {
-    margin: 78px auto;
-    .container-cocktail {
-      display: flex;
-      gap: 10px;
-    }
-  }
-
-  // .swiper-slide {
-  //   height: 100%;
-  //   width: 200px !important;
-  //   transition: all 1.3s ease;
-
-  //   &:hover {
-  //     width: 300px !important;
-  //   }
-  // }
-
-  // .swiper-button-next,
-  // .swiper-button-prev {
-  //   background-color: rgba(0, 0, 0, 0.5);
-  //   width: auto;
-  //   height: auto;
-  //   position: absolute;
-  //   top: 50%;
-  //   z-index: 10;
-  //   cursor: pointer;
-  //   border-radius: 99px;
-  // }
-
-  // .swiper-button-next {
-  //   right: 10px;
-  // }
-
-  // .swiper-button-prev {
-  //   left: 10px;
-  // }
 }
 </style>
