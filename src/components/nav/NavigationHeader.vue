@@ -61,16 +61,9 @@ nav {
   margin: auto;
   padding: 20px;
 
-  // @media screen and (min-width: 1300px) {
-  //   width: 100%;
-  //   max-width: 1200px;
-  // }
-  // @media screen and (min-width: 1400px) {
-  //   max-width: 1200px;
-  // }
-
   h1 {
     font-size: 1rem;
+    //consomme animation desactiver
     // animation: neon6 2.5s ease-in-out infinite alternate;
     line-height: 1;
     text-decoration: none;

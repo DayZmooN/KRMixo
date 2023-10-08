@@ -74,6 +74,15 @@ export default defineComponent({
     Slide,
     Navigation,
   },
+  metaInfo() {
+    return {
+      // Définissez les méta descriptions spécifiques à ce composant
+      meta: [
+        { name: "description", content: "Description de votre page" },
+        // Autres balises meta
+      ],
+    };
+  },
   data() {
     return {
       cocktails: [],
