@@ -48,8 +48,10 @@
         >
       </div>
       <div class="name_copyright">
-        <a href=""><span>KRMixo.com</span></a>
-        <a href=""><span>Copyright © All rights reserved</span></a>
+        <span>Copyright © All rights reserved</span>
+        <router-link :to="{ name: 'home' }">
+          <span>KRMixo.com</span>
+        </router-link>
       </div>
     </div>
   </footer>

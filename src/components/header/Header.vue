@@ -103,7 +103,6 @@ header {
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-        // transform: rotate(180deg);
         gap: 10px;
         transition-duration: 0.5s;
       }
@@ -114,10 +113,6 @@ header {
         background-color: #f27304;
         border-radius: 4px;
       }
-
-      // #bar1 {
-      //   width: 75%;
-      // }
 
       #bar2 {
         width: 100%;
@@ -185,10 +180,8 @@ header {
       rgba(255, 206, 49, 0.85) 100%
     );
 
-    // color: white;
     justify-content: center;
     align-items: center;
-    // font-size: 2em;
     z-index: 999;
     margin: 0px auto;
     opacity: 0;
