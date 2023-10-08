@@ -61,20 +61,22 @@ nav {
   margin: auto;
   padding: 20px;
 
-  @media screen and (min-width: 1300px) {
-    width: 100%;
-    max-width: 1200px;
-  }
-  @media screen and (min-width: 1400px) {
-    max-width: 1200px;
-  }
+  // @media screen and (min-width: 1300px) {
+  //   width: 100%;
+  //   max-width: 1200px;
+  // }
+  // @media screen and (min-width: 1400px) {
+  //   max-width: 1200px;
+  // }
 
   h1 {
     font-size: 1rem;
-    animation: neon6 2.5s ease-in-out infinite alternate;
+    // animation: neon6 2.5s ease-in-out infinite alternate;
     line-height: 1;
     text-decoration: none;
     color: #fb7d8a;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fb7d8a,
+      0 0 70px #fb7d8a, 0 0 80px #fb7d8a, 0 0 100px #fb7d8a, 0 0 150px #fb7d8a;
 
     @media screen and (min-width: 780px) {
       font-size: 1.5rem;
@@ -82,15 +84,15 @@ nav {
   }
 }
 
-@keyframes neon6 {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fb7d8a,
-      0 0 70px #fb7d8a, 0 0 80px #fb7d8a, 0 0 100px #fb7d8a, 0 0 150px #fb7d8a;
-  }
+// @keyframes neon6 {
+//   from {
+//     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fb7d8a,
+//       0 0 70px #fb7d8a, 0 0 80px #fb7d8a, 0 0 100px #fb7d8a, 0 0 150px #fb7d8a;
+//   }
 
-  to {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fb7d8a,
-      0 0 35px #fb7d8a, 0 0 40px #fb7d8a, 0 0 50px #fb7d8a, 0 0 75px #fb7d8a;
-  }
-}
+//   to {
+//     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fb7d8a,
+//       0 0 35px #fb7d8a, 0 0 40px #fb7d8a, 0 0 50px #fb7d8a, 0 0 75px #fb7d8a;
+//   }
+// }
 </style>

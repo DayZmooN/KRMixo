@@ -8,12 +8,15 @@
       :settings="settings"
       :breakpoints="breakpoints"
     />
-
     <div class="container-cocktail">
       <h3 class="h3-card-detailCocktail">Mélanges récents</h3>
       <div class="cocktail">
         <Carousel v-bind="settings" :breakpoints="breakpoints">
-          <Slide v-for="cocktail in cocktails" :key="cocktail.idDrink">
+          <Slide
+            v-for="cocktail in cocktails"
+            :key="cocktail.idDrink"
+            class="track"
+          >
             <Card
               :title="cocktail.strDrink"
               :poster_path="cocktail.strDrinkThumb"
@@ -150,20 +153,12 @@ export default {
         console.error("Erreur lors de l'appel API:", error);
       }
     },
-    // getIngredientImageUrl(ingredientName) {
-    //   if (!ingredientName) return "";
-    //   const formattedName = ingredientName.toLowerCase().replace(/ /g, "_");
-    //   return `https://www.thecocktaildb.com/images/ingredients/${formattedName}-Medium.png`;
-    // },
-
     async allCocktailNoAlcool() {
       try {
         const response = await allCocktailNoAlcool();
         const data = await response.json();
-        const currentIdDrink = this.$route.params.idDrink; // Obtenez l'idDrink actuel à partir des paramètres de la route
-
+        const currentIdDrink = this.$route.params.idDrink;
         if (data.drinks && data.drinks.length > 0) {
-          // Filtrer les cocktails pour éliminer celui qui a le même idDrink que le cocktail actuel
           this.cocktails = data.drinks
             .filter((cocktail) => cocktail.idDrink !== currentIdDrink)
             .slice(0, 20);
@@ -196,44 +191,40 @@ header {
     display: block;
   }
 }
-
 .details-cocktail {
   width: 100%;
   background: #fef9e4;
+  margin: auto;
   border-radius: 18px;
   @media screen and (min-width: 780px) {
     width: auto;
+    max-width: 95%;
   }
   @media screen and (min-width: 1440px) {
     margin: auto;
   }
 
-  .carousel__slide,
-  .carousel__slide--visible,
-  .carousel__slide--active {
-    transform: initial;
-    width: initial !important;
-  }
-
-  .carousel__track {
-    gap: 10px !important;
-  }
-  .carousel__slide {
-    width: 99px !important;
-  }
   .container-cocktail {
     width: 100%;
-    max-width: 1200px;
     margin: 90px auto;
     .h3-card-detailCocktail {
       margin: 20px auto;
     }
-    .carousel__slide,
-    .carousel__slide--visible,
-    .carousel__slide--active {
-      transform: initial;
-      width: initial !important;
-    }
   }
+}
+.carousel__track {
+  gap: 10px !important;
+  transform: inherit !important;
+}
+.custom-carousel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  transform: initial;
+  gap: 60px;
+}
+
+.carousel__slide {
+  width: initial !important;
 }
 </style>

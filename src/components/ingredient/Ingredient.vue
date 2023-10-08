@@ -1,10 +1,7 @@
 <template>
   <div class="slider-wrapper">
-    <swiper :slides-per-view="5" :space-between="20" :freeMode="true">
-      <swiper-slide
-        v-for="ingredient in ingredients"
-        :key="ingredient.strIngredient1"
-      >
+    <Carousel v-bind="settings" :breakpoints="breakpoints">
+      <Slide v-for="ingredient in ingredients" :key="ingredient.strIngredient1">
         <div
           class="slide-ingredient"
           @click="$emit('ingredientSelected', ingredient.strIngredient1)"
@@ -15,23 +12,28 @@
           />
           <span>{{ ingredient.strIngredient1 }}</span>
         </div>
-      </swiper-slide>
-    </swiper>
+      </Slide>
+      <template #addons>
+        <Navigation />
+      </template>
+    </Carousel>
   </div>
 </template>
 
 <script>
 // Importez les composants Swiper et SwiperSlide
-import { Swiper, SwiperSlide } from "swiper/vue";
-
+// import { Swiper, SwiperSlide } from "swiper/vue";
+import { Carousel, Navigation, Slide } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css";
 // Importez les styles Swiper
-import "swiper/css";
+// import "swiper/css";
 
 export default {
   name: "IngredientComponent",
   components: {
-    Swiper,
-    SwiperSlide,
+    Carousel,
+    Slide,
+    Navigation,
   },
   props: {
     ingredients: {
@@ -53,7 +55,7 @@ export default {
   position: relative;
   gap: 20px;
 
-  .ingredient-list {
+  .slider-ingredient {
     display: flex;
     overflow-x: hidden;
     scroll-behavior: smooth;
@@ -75,11 +77,17 @@ export default {
   margin: auto 20px !important;
 }
 .slide-ingredient {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  // display: flex;
+  // align-items: center;
+  // flex-direction: column;
   gap: 10px;
   text-align: center;
   width: 100px;
+}
+.carousel__slide {
+  width: initial !important;
+  justify-content: initial;
+  transition: 1.6s ease-in-out !important;
+  scroll-behavior: smooth;
 }
 </style>

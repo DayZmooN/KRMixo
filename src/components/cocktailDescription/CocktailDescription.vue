@@ -131,9 +131,7 @@ export default {
           top: 100%;
           font-size: 0.9em;
           left: 0;
-          // background-color: #f1f1f1;
           padding: 10px;
-          // border: 1px solid #ccc;
           border-radius: 5px;
         }
       }
@@ -141,12 +139,11 @@ export default {
   }
 }
 .wave-container {
-  // overflow: hidden;
   width: 100%;
   height: 50px;
 
   @media screen and (min-width: 780px) {
-    height: 140px;
+    height: 170px;
   }
 }
 

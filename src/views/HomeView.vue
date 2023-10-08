@@ -23,7 +23,7 @@
         </template>
       </Carousel>
 
-      <h1>Boissons aléatoires</h1>
+      <h3>Boissons aléatoires</h3>
       <Carousel
         v-bind="settings"
         :breakpoints="breakpoints"
@@ -171,35 +171,20 @@ export default defineComponent({
 <style scoped lang="scss">
 .home_card {
   width: 100%;
-  max-width: 85%;
   margin: auto;
 
-  // margin: auto;
-  // @media screen and (min-width: 768px) {
-  //   max-width: 760px;
-  // }
-  // @media screen and (min-width: 1028px) {
-  //   max-width: 1114px;
-  // }
-  // @media screen and (min-width: 1440px) {
-  //   max-width: 1440px;
-  // }
+  @media screen and (min-width: 780px) {
+    max-width: 85%;
+  }
 
   h3 {
     text-align: left;
-    margin: 20px auto;
+    margin: 25px auto;
   }
-  // .carousel__slide,
-  // .carousel__slide--visible,
-  // .carousel__slide--active {
-  //   transform: auto;
-  //   // width: inherit !important;
-  //   // max-width: 200px;
-  // }
+
   .carousel__track {
     width: 100%;
     transform: inherit !important;
-    // gap: 10px !important;
   }
   a {
     width: auto;
@@ -210,23 +195,13 @@ export default defineComponent({
     overflow: auto;
     max-width: 89%;
   }
-  // .carousel__viewport {
-  //   width: 100%;
-  //   overflow: auto !important;
-  // }
+
   .custom-carousel {
     width: 100%;
     display: flex;
-    // height: 300px;
     align-items: center;
-    // margin: 10px auto;
-    // padding: 20px;
     transform: initial;
     gap: 60px;
-  }
-
-  h1 {
-    margin: 20px auto;
   }
 }
 </style>

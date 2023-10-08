@@ -21,7 +21,6 @@
       </div>
     </div>
     <Carousel v-bind="settings" :breakpoints="breakpoints">
-      <!-- <div class="container-bubble"> -->
       <Slide v-for="ingredient in ingredients" :key="ingredient.index">
         <div class="picture-ingredients">
           <img
@@ -30,11 +29,6 @@
             :alt="`${ingredient.name} image`"
             @error="handleImageError"
           />
-
-          <!-- <div>
-            <span>{{ ingredient.name }}</span>
-            <span>{{ ingredient.measure }}</span>
-          </div> -->
         </div>
 
         <div class="qty-name">
@@ -42,7 +36,6 @@
           <span>{{ ingredient.name }}</span>
         </div>
       </Slide>
-      <!-- </div> -->
       <template #addons>
         <Navigation />
       </template>
@@ -83,61 +76,27 @@ export default {
   background: #fff;
   margin: auto;
 
-  @media screen and (min-width: 1220px) {
-    max-width: 1200px;
-  }
-  max-width: 1200px;
   .arrow_ingredients {
     width: 100%;
     display: flex;
     gap: 10px;
   }
 
-  .carousel_slide {
-    // width: 99px;
-    height: 99px;
-  }
-  .carousel_track {
-    transform: initial;
-  }
-  .carousel {
-    width: 100%;
-    display: flex;
-    margin: auto;
-    justify-content: center;
-  }
   .carousel__slide,
   .carousel__slide--visible,
   .carousel__slide--active {
-    transform: initial;
-    width: 100px !important;
-    margin: auto;
     display: flex;
     flex-direction: column;
-    // width: 145px;
-    height: 170px;
-    background: #fef9e4;
-    margin-left: 10px;
-    border-radius: 999px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: 1px solid #fbe897;
     .picture-ingredients {
       width: 99px;
       height: 110px;
       display: flex;
       align-items: center;
-
-      align-items: center;
-
       img {
         width: 100%;
         height: 100%;
       }
     }
-
     .qty-name {
       padding: 10px;
       text-align: center;

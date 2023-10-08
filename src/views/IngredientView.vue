@@ -2,7 +2,7 @@
   <div>
     <Header />
     <Search @search="performSearch" />
-    <div class="ingredient" id="scroll-container" style="overflow: auto">
+    <div class="ingredient">
       <IngredientAll
         :ingredients="ingredients"
         @ingredientSelected="getCocktailsByIngredient"
@@ -71,7 +71,6 @@ export default {
   mounted() {
     this.getIngredient();
     this.getCocktailsByIngredient("Tea");
-    // this.setupRightClickScroll();
   },
   methods: {
     async getIngredient() {
@@ -157,30 +156,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .ingredient {
-//   width: 100%;
-//   overflow: scroll;
-// }
-// ::-webkit-scrollbar {
-//   width: 8px;
-//   height: 8px;
-// }
-// ::-webkit-scrollbar-track {
-//   background: #f1f1f1;
-// }
-// ::-webkit-scrollbar-thumb {
-//   background: orange;
-//   border-radius: 99px;
-// }
-// ::-webkit-scrollbar-thumb:hover {
-//   background: #555;
-// }
-// #scroll-container {
-//   cursor: grab;
-// }
-// #scroll-container:active {
-//   cursor: grabbing;
-// }
 .card-ingredient {
   display: flex;
   gap: 16px;

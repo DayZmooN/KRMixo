@@ -196,8 +196,12 @@ header {
 
     span {
       padding: 15px;
-      font-size: 3rem;
+      font-size: 2rem;
       color: rgb(255, 255, 255);
+
+      @media screen and (min-width: 780px) {
+        font-size: 3rem;
+      }
     }
 
     &::before {
@@ -206,8 +210,8 @@ header {
       left: 0;
       width: 100%;
       height: 100%;
-      background: inherit; /* Copiez l'arrière-plan de l'élément parent */
-      filter: blur(5px); /* Appliquez le flou sur le pseudo-élément */
+      background: inherit;
+      filter: blur(5px);
       z-index: -1;
     }
   }
