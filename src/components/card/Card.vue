@@ -5,23 +5,6 @@
 
       <div class="characteristic_card">
         <h1>{{ title }}</h1>
-        <!-- <div class="type_cocktaim">
-          <img class="icon" src="@/assets/icon/glass.svg" alt="glass" />
-          <h2>Mocktail</h2>
-        </div>
-        <div class="times_dificult">
-          <div class="times">
-            <img class="icon" src="@/assets/icon/time.svg" alt="glass" />
-            <h2>20 min</h2>
-          </div>
-          <div class="dificult">
-            <span>{{ dificulty || "Easy" }}</span>
-          </div>
-        </div>
-        <div class="heard">
-          <img class="icon" src="@/assets/icon/heard.svg" alt="like" />
-          <span>534</span>
-        </div> -->
       </div>
     </div>
   </router-link>
@@ -44,7 +27,7 @@ export default {
 
 <style scoped lang="scss">
 .card {
-  width: 300px;
+  width: 290px;
   color: #fb7d8a;
   margin: auto 10px;
 
@@ -65,7 +48,7 @@ export default {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
   @media screen and (min-width: 700px) {
-    width: 150px;
+    width: 180px;
     margin: auto 10px;
     &:hover {
       width: 160px;
@@ -153,18 +136,18 @@ export default {
       width: 100%;
       // left: 20px;
       z-index: 200;
-      max-width: 89%;
+      max-width: 72%;
       transition: 0.6s ease-in-out;
       &:hover {
         bottom: 30px;
       }
     }
     h1 {
-      font-size: 1.1rem;
+      font-size: 1rem;
 
-      @media screen and (min-width: 780px) {
-        font-size: 1.2rem;
-        animation: neon6 2.5s ease-in-out infinite alternate;
+      @media screen and (min-width: 880px) {
+        font-size: 1.1rem;
+        // animation: neon6 2.5s ease-in-out infinite alternate;
         white-space: pre-wrap;
         border-radius: 18px;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

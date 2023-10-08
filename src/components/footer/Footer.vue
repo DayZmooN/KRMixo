@@ -30,12 +30,22 @@
     </div>
     <div class="footer_desktop">
       <div class="mail">
-        <span>karimryahi01@gmail.com</span>
+        <a href="mailto:karimryahi01@gmail.com" target="_blank"
+          ><span>karimryahi01@gmail.com</span></a
+        >
       </div>
       <div class="social">
-        <a href=""><span>Portfolio</span></a>
-        <a href=""><span>GitHub</span></a>
-        <a href=""><span>LinkeDin </span></a>
+        <a href="https://krdevweb.com/" target="_blank"
+          ><span>Portfolio</span></a
+        >
+        <a href="https://github.com/DayZmooN" target="_blank"
+          ><span>GitHub</span></a
+        >
+        <a
+          href="https://fr.linkedin.com/in/karim-ryahi-858a13215"
+          target="_blank"
+          ><span>LinkeDin </span></a
+        >
       </div>
       <div class="name_copyright">
         <a href=""><span>KRMixo.com</span></a>
@@ -104,7 +114,7 @@ footer {
     @media screen and (min-width: 780px) {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
       width: 100%;
       //   background: #ff5733;
     }

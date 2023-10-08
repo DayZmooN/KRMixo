@@ -80,6 +80,7 @@ export default {
     width: 100%;
     display: flex;
     gap: 10px;
+    margin-bottom: 20px;
   }
 
   .carousel__slide,

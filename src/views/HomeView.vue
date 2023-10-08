@@ -172,6 +172,7 @@ export default defineComponent({
 .home_card {
   width: 100%;
   margin: auto;
+  margin-bottom: 90px;
 
   @media screen and (min-width: 780px) {
     max-width: 85%;
@@ -180,6 +181,11 @@ export default defineComponent({
   h3 {
     text-align: left;
     margin: 25px auto;
+    text-align: center;
+
+    @media screen and (min-width: 780px) {
+      text-align: left;
+    }
   }
 
   .carousel__track {
